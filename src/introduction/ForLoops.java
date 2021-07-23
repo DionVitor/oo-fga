@@ -1,6 +1,6 @@
-package Introdução;
+package introduction;
 
-public class Loops {
+public class ForLoops {
     public static void main(String[] args) {
         int[] numbers = {10, 20, 30};
 
