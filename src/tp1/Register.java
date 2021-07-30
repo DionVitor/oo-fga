@@ -3,7 +3,7 @@ package tp1;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class RegisterSell {
+public class Register {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         ArrayList<Client> clients = new ArrayList<>();
@@ -28,7 +28,9 @@ public class RegisterSell {
                 case 3:
                     registerProduct(products);
                     break;
-
+                case 4:
+                    searchProduct(products);
+                    break;
                 case 7:
                     break;
                 default:
@@ -39,8 +41,12 @@ public class RegisterSell {
         } while (choice != 7);
 
 //        for (Client client : clients) {
-//            System.out.println(client.name + "" + client.address + "" + client.phone);
+//            System.out.println(client.name + " " + client.address + " " + client.phone);
 //        }
+
+        for (Product product : products) {
+            System.out.println(product.name + " " + product.description + " " + product.value + " " + product.profit + " " + product.stock);
+        }
     }
 
     public static void showMenu() {
@@ -96,18 +102,34 @@ public class RegisterSell {
 
         for (Client client : clients) {
             if (name.equals(client.name)) {
-
-                System.out.print("Digite o novo nome: ");
-                client.name = input.next();
+                System.out.println("Dados atuais do cliente:");
+                System.out.println("Nome: " + client.name + "\n" +
+                                   "Endereço: " + client.address + "\n" +
+                                   "Telefone: " + client.phone);
                 showLine();
 
-                System.out.print("Digite o novo endereço: ");
-                client.address = input.next();
+                System.out.print("Deseja alterar os dados? [S/N] ");
+                String choice = input.next();
                 showLine();
 
-                System.out.print("Digite o novo telefone: ");
-                client.phone = input.next();
-                showLine();
+                switch (choice) {
+                    case "S":
+                    case "s":
+                        System.out.print("Digite o novo nome: ");
+                        client.name = input.next();
+                        showLine();
+
+                        System.out.print("Digite o novo endereço: ");
+                        client.address = input.next();
+                        showLine();
+
+                        System.out.print("Digite o novo telefone: ");
+                        client.phone = input.next();
+                        showLine();
+                        break;
+                    default:
+                        break;
+                }
 
                 validSearch = true;
                 break;
@@ -148,5 +170,69 @@ public class RegisterSell {
             products.add(new Product(name, description, value, profit, stock));
             showLine();
         }
+    }
+
+    public static void searchProduct(ArrayList<Product> products) {
+        Scanner input = new Scanner(System.in);
+        boolean validSearch = false;
+
+        System.out.print("Digite o nome do produto: ");
+        String name = input.next();
+        showLine();
+
+        for (Product product : products) {
+            if (name.equals(product.name)) {
+                System.out.println("Dados atuais do produto:");
+                System.out.println("Nome: " + product.name + "\n" +
+                                   "Descrição: " + product.description + "\n" +
+                                   "Valor: " + product.value + "\n" +
+                                   "Lucro: " + product.profit + "\n" +
+                                   "Quantidade em estoque: " + product.stock);
+                showLine();
+
+                System.out.print("Deseja alterar os dados? [S/N] ");
+                String choice = input.next();
+                showLine();
+
+                switch (choice) {
+                    case "S":
+                    case "s":
+                        System.out.print("Digite o novo nome: ");
+                        product.name = input.next();
+                        showLine();
+
+                        System.out.print("Digite a nova descrição: ");
+                        product.description = input.next();
+                        showLine();
+
+                        System.out.print("Digite o novo valor: ");
+                        product.value = input.nextFloat();
+                        showLine();
+
+                        System.out.print("Digite o novo lucro: ");
+                        product.profit = input.nextFloat();
+                        showLine();
+
+                        System.out.print("Digite a nova quantidade em estoque: ");
+                        product.stock = input.nextInt();
+                        showLine();
+                        break;
+                    default:
+                        break;
+                }
+
+                validSearch = true;
+                break;
+            }
+        }
+
+        if (!validSearch) {
+            System.out.println("Produto não encontrado!");
+            showLine();
+        }
+    }
+
+    public static void registerSell() {
+
     }
 }
