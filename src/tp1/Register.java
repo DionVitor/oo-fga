@@ -1,5 +1,6 @@
 package tp1;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,7 +10,7 @@ public class Register {
         ArrayList<Client> clients = new ArrayList<>();
         ArrayList<Product> products = new ArrayList<>();
 
-//        loadData(clients);
+        loadData(clients, products);
 
         showLine();
         int choice;
@@ -31,6 +32,12 @@ public class Register {
                 case 4:
                     searchProduct(products);
                     break;
+                case 5:
+                    registerSell(clients, products);
+                    break;
+                case 6:
+                    showStock(products);
+                    break;
                 case 7:
                     break;
                 default:
@@ -39,14 +46,6 @@ public class Register {
                     showLine();
             }
         } while (choice != 7);
-
-//        for (Client client : clients) {
-//            System.out.println(client.name + " " + client.address + " " + client.phone);
-//        }
-
-        for (Product product : products) {
-            System.out.println(product.name + " " + product.description + " " + product.value + " " + product.profit + " " + product.stock);
-        }
     }
 
     public static void showMenu() {
@@ -64,8 +63,19 @@ public class Register {
         System.out.println("----------------------------------");
     }
 
-    public static void loadData(ArrayList<Client> clients) {
+    public static void loadData(ArrayList<Client> clients, ArrayList<Product> products) {
+        String[] names = {"João", "Marcelo", "Eurico", "Jonas", "Dion", "Miguel", "Micaele", "Rita", "Lucas", "Pedro"};
+        for (String name : names) {
+            clients.add(new Client(name, "endereço", "61998822230"));
+        }
 
+        String[] productsNames = {
+                "Manga", "Iphone", "Goiaba", "TV", "Garrafa", "Fones de ouvido",
+                "Livro", "Compurador", "Acetona", "Mouse"
+        };
+        for (String name : productsNames) {
+            products.add(new Product(name, "descrição", 100, 50, 10));
+        }
     }
 
     public static void registerClients(ArrayList<Client> clients) {
@@ -232,7 +242,87 @@ public class Register {
         }
     }
 
-    public static void registerSell() {
+    public static void registerSell(ArrayList<Client> clients, ArrayList<Product> products) {
+        Scanner input = new Scanner(System.in);
+        boolean validClientSearch = false;
+        boolean validProductSearch;
+        String registerMoreProducts;
+        Integer quantityProducts;
 
+        System.out.println("Clientes:");
+        for (Client client : clients) {
+            System.out.println(client.name);
+        }
+        showLine();
+
+        System.out.print("Selecione um usuário: ");
+        String choice = input.next();
+        showLine();
+
+        for (Client client : clients) {
+            if (client.name.equals(choice)) {
+                validClientSearch = true;
+                break;
+            }
+        }
+
+        if (validClientSearch) {
+            do {
+                validProductSearch = false;
+                quantityProducts = 0;
+
+                System.out.println("Produtos: ");
+                for (Product product : products) {
+                    System.out.println(product.name);
+                }
+                showLine();
+
+                System.out.print("Selecione um produto: ");
+                String productChoice = input.next();
+                showLine();
+
+                for (Product product : products) {
+                    if (product.name.equals(productChoice)) {
+                        validProductSearch = true;
+                        quantityProducts = product.stock;
+                        break;
+                    }
+                }
+                if (!validProductSearch) {
+                    System.out.println("Produto inválido");
+                    showLine();
+                } else {
+                    System.out.print("Quantos produtos: ");
+                    int quantityProductsChoice = input.nextInt();
+
+                    if (quantityProductsChoice > quantityProducts) {
+                        System.out.println("Impossível comprar mais que o estoque.");
+                    } else {
+                        for (Product product : products) {
+                            if (product.name.equals(productChoice)) {
+                                product.stock -= quantityProductsChoice;
+                            }
+                        }
+                    }
+                }
+
+                System.out.print("Deseja tentar cadastrar mais: [S/N] ");
+                registerMoreProducts = input.next();
+                showLine();
+
+            } while (!registerMoreProducts.equals("N"));
+
+        } else {
+            System.out.println("Usuário inválido.");
+            showLine();
+        }
+    }
+
+    public static void showStock(ArrayList<Product> products) {
+        showLine();
+        for (Product product : products) {
+            System.out.println(product.name + " - " + product.stock);
+        }
+        showLine();
     }
 }

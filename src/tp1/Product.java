@@ -3,11 +3,11 @@ package tp1;
 public class Product {
     public String name;
     public String description;
-    public Float value;
-    public Float profit;
+    public double value;
+    public double profit;
     public Integer stock;
 
-    public Product(String name, String description, Float value, Float profit, Integer stock) {
+    public Product(String name, String description, double value, double profit, Integer stock) {
         this.name = name;
         this.description = description;
         this.value = value;
