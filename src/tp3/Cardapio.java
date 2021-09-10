@@ -17,10 +17,10 @@ public class Cardapio extends CRUD {
     }
 
     public boolean edit() {
-        return false;
+        return true;
     }
 
     public boolean delete() {
-        return false;
+        return true;
     }
 }
