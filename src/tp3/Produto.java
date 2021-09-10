@@ -3,10 +3,10 @@ package tp3;
 import tp3.CRUD;
 
 public class Produto extends CRUD {
-    private String nome;
-    private double preco;
-    private String descricao;
-    private int estoque;
+    private final String nome;
+    private final double preco;
+    private final String descricao;
+    private final int estoque;
 
     public Produto(String nome, double preco, String descricao, int estoque){
         this.nome = nome;
