@@ -24,6 +24,7 @@ public class Produto extends CRUD {
     public boolean edit() {
         return true;
     }
+
     @Override
     public boolean delete() {
         return true;

@@ -27,4 +27,6 @@ public class Venda extends CRUD {
     public boolean delete() {
         return true;
     }
+
+    public void emitir_nota(){}
 }
