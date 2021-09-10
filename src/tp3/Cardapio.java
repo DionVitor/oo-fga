@@ -26,4 +26,12 @@ public class Cardapio extends CRUD {
     public boolean delete() {
         return true;
     }
+
+    public String getTipo() {
+        return this.tipo;
+    }
+
+    public Produto[] getProdutos() {
+        return this.produtos;
+    }
 }

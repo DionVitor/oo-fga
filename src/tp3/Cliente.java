@@ -29,4 +29,20 @@ public class Cliente extends CRUD {
     public boolean delete() {
         return true;
     }
+
+    public String getNome() {
+        return this.nome;
+    }
+
+    public String getEndereco() {
+        return this.endereco;
+    }
+
+    public String getTelefone() {
+        return this.telefone;
+    }
+
+    public String getPagamento() {
+        return this.pagamento;
+    }
 }

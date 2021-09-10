@@ -29,4 +29,20 @@ public class Produto extends CRUD {
     public boolean delete() {
         return true;
     }
+
+    public String getNome() {
+        return this.nome;
+    }
+
+    public double getPreco() {
+        return this.preco;
+    }
+
+    public String getDescricao() {
+        return this.descricao;
+    }
+
+    public int getEstoque() {
+        return this.estoque;
+    }
 }

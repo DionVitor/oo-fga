@@ -29,4 +29,16 @@ public class Venda extends CRUD {
     }
 
     public void emitirNota(){}
+
+    public String getNomeCliente() {
+        return this.nomeCliente;
+    }
+
+    public String getNomeProduto() {
+        return this.nomeProduto;
+    }
+
+    public int getQuantProduto() {
+        return this.quantProduto;
+    }
 }
