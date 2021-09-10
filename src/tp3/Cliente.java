@@ -15,13 +15,18 @@ public class Cliente extends CRUD {
         this.pagamento = pagamento;
     }
 
-    public boolean set(){
+    @Override
+    public boolean set() {
         return true;
     }
-    public boolean edit(){
+
+    @Override
+    public boolean edit() {
         return true;
     }
-    public boolean delete(){
+
+    @Override
+    public boolean delete() {
         return true;
     }
 }

@@ -12,14 +12,17 @@ public class Cardapio extends CRUD {
         this.produtos = produtos;
     }
 
+    @Override
     public boolean set() {
         return true;
     }
 
+    @Override
     public boolean edit() {
         return true;
     }
 
+    @Override
     public boolean delete() {
         return true;
     }

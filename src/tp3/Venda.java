@@ -13,14 +13,17 @@ public class Venda extends CRUD {
         this.quant_produto = quant_produto;
     }
 
+    @Override
     public boolean set() {
         return true;
     }
 
+    @Override
     public boolean edit() {
         return true;
     }
 
+    @Override
     public boolean delete() {
         return true;
     }
