@@ -3,14 +3,14 @@ package tp3;
 import tp3.CRUD;
 
 public class Venda extends CRUD {
-    private final String nome_cliente;
-    private final String nome_produto;
-    private final int quant_produto;
+    private final String nomeCliente;
+    private final String nomeProduto;
+    private final int quantProduto;
 
-    public Venda(String nome_cliente, String nome_produto, int quant_produto) {
-        this.nome_cliente = nome_cliente;
-        this.nome_produto = nome_produto;
-        this.quant_produto = quant_produto;
+    public Venda(String nomeCliente, String nomeProduto, int quantProduto) {
+        this.nomeCliente = nomeCliente;
+        this.nomeProduto = nomeProduto;
+        this.quantProduto = quantProduto;
     }
 
     @Override
@@ -28,5 +28,5 @@ public class Venda extends CRUD {
         return true;
     }
 
-    public void emitir_nota(){}
+    public void emitirNota(){}
 }
