@@ -8,13 +8,20 @@ public class Produto extends CRUD {
     private String descricao;
     private int estoque;
 
+    public Produto(String nome, double preco, String descricao, int estoque){
+        this.nome = nome;
+        this.preco = preco;
+        this.descricao = descricao;
+        this.estoque = estoque;
+    }
+
     public boolean set(){
         return true;
-    };
+    }
     public boolean edit(){
         return true;
-    };
+    }
     public boolean delete(){
         return true;
-    };
+    }
 }
