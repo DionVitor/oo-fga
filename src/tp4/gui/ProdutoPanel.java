@@ -65,7 +65,7 @@ public class ProdutoPanel extends JPanel {
         createProductPane.add(inventLabel);
         createProductPane.add(inventInput);
 
-        // Create produto pane - button
+        // Create product pane - button
         createProductPane.add(Box.createRigidArea(new Dimension(1000, 80)));
         JButton saveButton = new JButton("Adicionar");
         saveButton.setPreferredSize(new Dimension(200, 30));
