@@ -74,4 +74,3 @@ public class ProdutoPanel extends JPanel {
         this.add(tabbedPane);
     }
 }
-
