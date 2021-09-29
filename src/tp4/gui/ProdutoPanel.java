@@ -1,11 +1,21 @@
 package tp4.gui;
 
+import tp4.domain.Produto;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class ProdutoPanel extends JPanel {
+    private final ArrayList<Produto> products;
+
     public ProdutoPanel() {
         super(false);
+        this.products = new ArrayList<>();
+        ProdutoPanel instance = this;
+        JPanel productsListPanel = new JPanel();
+        final JComboBox<String> dropdown = new JComboBox<>();
 
         // Break line
         this.add(Box.createRigidArea(new Dimension(1000, 8)));
@@ -30,12 +40,12 @@ public class ProdutoPanel extends JPanel {
         tabbedPane.addTab("Editar produto", icon, editProductPanel);
         tabbedPane.addTab("Listar produto", icon, listProductsPanel);
 
-        // Create product panel - title
+        // Create title at product panel
         createProductPanel.add(Box.createRigidArea(new Dimension(1000, 10)));
         createProductPanel.add(new JLabel("Adicionar produto"));
         createProductPanel.add(Box.createRigidArea(new Dimension(1000, 20)));
 
-        // Create product panel - inputs
+        // Create inputs at product panel
         JLabel nameLabel = new JLabel("Nome:");
         nameLabel.setPreferredSize(new Dimension(100, 30));
         JTextField nameInput = new JTextField();
@@ -65,28 +75,60 @@ public class ProdutoPanel extends JPanel {
         createProductPanel.add(inventLabel);
         createProductPanel.add(inventInput);
 
-        // Create product panel - button
+        // Create button at product panel
         createProductPanel.add(Box.createRigidArea(new Dimension(1000, 80)));
         JButton saveButton = new JButton("Adicionar");
+
+        saveButton.addActionListener(
+                e -> {
+                    if (!Objects.equals(nameInput.getText(), "")) {
+                        ProdutoPanel.registerProduct(
+                                instance.products,
+                                nameInput.getText(),
+                                priceInput.getText(),
+                                descInput.getText(),
+                                inventInput.getText()
+                        );
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "Produto adicionado: " + nameInput.getText(),
+                                null,
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+                        productsListPanel.add(new JLabel("- " + nameInput.getText()));
+                        productsListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+                        dropdown.addItem(nameInput.getText());
+                    } else {
+                        JOptionPane.showMessageDialog(null,
+                                "Campo nome nulo",
+                                null,
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+        );
+
         saveButton.setPreferredSize(new Dimension(200, 30));
         createProductPanel.add(saveButton);
 
-        // "Editar produto" tab add title
+        // Add tittle at "Editar produto" tab
         editProductPanel.add(Box.createRigidArea(new Dimension(1000, 10)));
         editProductPanel.add(new JLabel("Editar produto"));
         editProductPanel.add(Box.createRigidArea(new Dimension(1000, 20)));
 
-        // "Editar produto" tab add dropdown
+        // Add dropdown at "Editar produto" tab
         JLabel productLabel = new JLabel("Produto:");
         productLabel.setPreferredSize(new Dimension(100, 30));
         editProductPanel.add(productLabel);
-        String[] testProducts = {"Hambúrguer", "Batata frita", "Coca-Cola"};
-        JComboBox<String> dropdown = new JComboBox<>(testProducts);
+
+        for (Produto product : this.products) {
+            dropdown.addItem(product.getNome());
+        }
+
         dropdown.setPreferredSize(new Dimension(700, 30));
         editProductPanel.add(dropdown);
         editProductPanel.add(Box.createRigidArea(new Dimension(1000, 30)));
 
-        // "Editar produto" tab add inputs
+        // Add inputs at "Editar produto" tab
         JLabel nameEditLabel = new JLabel("Nome:");
         nameEditLabel.setPreferredSize(new Dimension(100, 30));
         JTextField nameEditInput = new JTextField();
@@ -104,9 +146,6 @@ public class ProdutoPanel extends JPanel {
         JTextField inventEditInput = new JTextField();
         inventEditInput.setPreferredSize(new Dimension(700, 30));
 
-        editProductPanel.add(nameEditLabel);
-        editProductPanel.add(nameEditInput);
-        editProductPanel.add(Box.createRigidArea(new Dimension(1000, 30)));
         editProductPanel.add(priceEditLabel);
         editProductPanel.add(priceEditInput);
         editProductPanel.add(Box.createRigidArea(new Dimension(1000, 30)));
@@ -116,25 +155,60 @@ public class ProdutoPanel extends JPanel {
         editProductPanel.add(inventEditLabel);
         editProductPanel.add(inventEditInput);
 
-        // "Editar produto" tab add buttons
+        // Add buttons at "Editar produto" tab
         editProductPanel.add(Box.createRigidArea(new Dimension(1000, 30)));
         JButton editButton = new JButton("Editar");
+
+        editButton.addActionListener(
+                e -> {
+                    ProdutoPanel.editProduct(
+                            instance.products,
+                            Objects.requireNonNull(dropdown.getSelectedItem()).toString(),
+                            priceEditInput.getText(),
+                            descEditInput.getText(),
+                            inventEditInput.getText()
+                    );
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Produto editado: " + dropdown.getSelectedItem().toString(),
+                            null,
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                }
+        );
+
         editButton.setPreferredSize(new Dimension(200, 30));
         JButton deleteButton = new JButton("Deletar");
+
+        deleteButton.addActionListener(
+                e -> {
+                    ProdutoPanel.deleteProduct(instance.products,
+                            Objects.requireNonNull(dropdown.getSelectedItem()).toString());
+
+                    productsListPanel.removeAll();
+                    ArrayList<String> productsNames = instance.getProductsInfo(instance.products);
+                    for (String productName : productsNames) {
+                        productsListPanel.add(new JLabel("- " + productName));
+                        productsListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+                    }
+                    dropdown.removeItem(dropdown.getSelectedItem().toString());
+                }
+        );
+
         deleteButton.setPreferredSize(new Dimension(200, 30));
         editProductPanel.add(editButton);
         editProductPanel.add(deleteButton);
 
-        // "Listar produto" tab add title
+        // Add title at "Listar produto" tab
         listProductsPanel.add(Box.createRigidArea(new Dimension(1000, 10)));
         listProductsPanel.add(new JLabel("Listar produtos"));
         listProductsPanel.add(Box.createRigidArea(new Dimension(1000, 20)));
 
-        // "Listar produto" tab add list
-        JPanel productsListPanel = new JPanel();
+        // Add listing at "Listar produto" tab
+        ArrayList<String> productsNames = this.getProductsInfo(this.products);
         productsListPanel.setLayout(new BoxLayout(productsListPanel, BoxLayout.PAGE_AXIS));
-        for (String testProduct : testProducts) {
-            productsListPanel.add(new JLabel("- " + testProduct));
+        for (String productName : productsNames) {
+            productsListPanel.add(new JLabel("- " + productName));
             productsListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         }
         JScrollPane productsListScroll = new JScrollPane(productsListPanel);
@@ -144,5 +218,30 @@ public class ProdutoPanel extends JPanel {
         listProductsPanel.add(productsListScroll);
 
         this.add(tabbedPane);
+    }
+
+    private ArrayList<String> getProductsInfo(ArrayList<Produto> products) {
+        ArrayList<String> productsNames = new ArrayList<>();
+        for (Produto product : products) {
+            productsNames.add(product.getNome());
+        }
+        return productsNames;
+    }
+
+    public static void registerProduct(ArrayList<Produto> products, String name, String price, String desc, String invent) {
+        Produto product = new Produto(name, price, desc, invent);
+        products.add(product);
+    }
+
+    public static void deleteProduct(ArrayList<Produto> products, String name) {
+        products.removeIf(product -> Objects.equals(product.getNome(), name));
+    }
+
+    public static void editProduct(ArrayList<Produto> products, String name, String price, String desc, String invent) {
+        for (Produto product : products) {
+            if (Objects.equals(product.getNome(), name)) {
+                product.edit(name, price, desc, invent);
+            }
+        }
     }
 }
