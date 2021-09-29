@@ -1,12 +1,18 @@
 package tp4.gui;
 
+import tp4.domain.Cliente;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 
 public class ClientePanel extends JPanel {
+    private ArrayList<Cliente> clients;
+
     public ClientePanel() {
         super(false);
+        this.clients = new ArrayList<>();
 
         // Title
         this.add(Box.createRigidArea(new Dimension(1000, 8)));
@@ -128,11 +134,11 @@ public class ClientePanel extends JPanel {
         listClientsPanel.add(Box.createRigidArea(new Dimension(1000, 20)));
 
         // List clients panel - list
-        String[] fakeClients = {"Dion", "Eurico"};
+        ArrayList<String> clientsNames = this.getClientsNames(this.clients);
         JPanel clientsListPanel = new JPanel();
         clientsListPanel.setLayout(new BoxLayout(clientsListPanel, BoxLayout.PAGE_AXIS));
-        for (String fakeClient : fakeClients) {
-            clientsListPanel.add(new JLabel("- " + fakeClient));
+        for (String clientName : clientsNames) {
+            clientsListPanel.add(new JLabel("- " + clientName));
             clientsListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         }
         JScrollPane clientsListScroll = new JScrollPane(clientsListPanel);
@@ -142,5 +148,13 @@ public class ClientePanel extends JPanel {
         listClientsPanel.add(clientsListScroll);
 
         this.add(tabbedPane);
+    }
+
+    private ArrayList<String> getClientsNames(ArrayList<Cliente> clients) {
+        ArrayList<String> clientsNames = new ArrayList<>();
+        for (Cliente client : clients) {
+            clientsNames.add(client.getNome());
+        }
+        return clientsNames;
     }
 }
