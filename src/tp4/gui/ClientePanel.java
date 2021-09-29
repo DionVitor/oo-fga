@@ -4,7 +4,10 @@ import tp4.domain.Cliente;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class ClientePanel extends JPanel {
@@ -13,6 +16,7 @@ public class ClientePanel extends JPanel {
     public ClientePanel() {
         super(false);
         this.clients = new ArrayList<>();
+        ClientePanel instance = this;
 
         // Title
         this.add(Box.createRigidArea(new Dimension(1000, 8)));
@@ -71,6 +75,27 @@ public class ClientePanel extends JPanel {
         // Create client panel - button
         createClientPanel.add(Box.createRigidArea(new Dimension(1000, 80)));
         JButton saveButton = new JButton("Adicionar");
+        saveButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (!Objects.equals(nameInput.getText(), "")) {
+                            ClientePanel.registerClient(
+                                    instance.clients,
+                                    nameInput.getText(),
+                                    addressInput.getText(),
+                                    phoneInput.getText(),
+                                    paymentInput.getText()
+                            );
+                            JOptionPane.showMessageDialog(
+                                    null, "Cliente adicionado: " + nameInput.getText(), null, JOptionPane.INFORMATION_MESSAGE
+                            );
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Campo nome nulo!", null, JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
+        );
         saveButton.setPreferredSize(new Dimension(200, 30));
         createClientPanel.add(saveButton);
 
@@ -156,5 +181,10 @@ public class ClientePanel extends JPanel {
             clientsNames.add(client.getNome());
         }
         return clientsNames;
+    }
+
+    public static void registerClient(ArrayList<Cliente> clients, String name, String address, String phone, String payment) {
+        Cliente client = new Cliente(name, address, phone, payment);
+        clients.add(client);
     }
 }
