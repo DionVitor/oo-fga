@@ -11,7 +11,7 @@ import java.util.Objects;
 
 
 public class ClientePanel extends JPanel {
-    private ArrayList<Cliente> clients;
+    private final ArrayList<Cliente> clients;
 
     public ClientePanel() {
         super(false);
@@ -121,10 +121,6 @@ public class ClientePanel extends JPanel {
         editClientPanel.add(Box.createRigidArea(new Dimension(1000, 30)));
 
         // Edit client panel - inputs
-        JLabel nameEditLabel = new JLabel("Nome:");
-        nameEditLabel.setPreferredSize(new Dimension(100, 30));
-        JTextField nameEditInput = new JTextField();
-        nameEditInput.setPreferredSize(new Dimension(700, 30));
         JLabel addressEditLabel = new JLabel("Endereço:");
         addressEditLabel.setPreferredSize(new Dimension(100, 30));
         JTextField addressEditInput = new JTextField();
@@ -138,9 +134,6 @@ public class ClientePanel extends JPanel {
         JTextField paymentEditInput = new JTextField();
         paymentEditInput.setPreferredSize(new Dimension(700, 30));
 
-        editClientPanel.add(nameEditLabel);
-        editClientPanel.add(nameEditInput);
-        editClientPanel.add(Box.createRigidArea(new Dimension(1000, 30)));
         editClientPanel.add(addressEditLabel);
         editClientPanel.add(addressEditInput);
         editClientPanel.add(Box.createRigidArea(new Dimension(1000, 30)));
@@ -153,8 +146,45 @@ public class ClientePanel extends JPanel {
         // Edit client panel - buttons
         editClientPanel.add(Box.createRigidArea(new Dimension(1000, 30)));
         JButton editButton = new JButton("Editar");
+        editButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        ClientePanel.editClient(
+                                instance.clients,
+                                dropdown.getSelectedItem().toString(),
+                                addressEditInput.getText(),
+                                phoneEditInput.getText(),
+                                paymentEditInput.getText()
+                        );
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "Cliente editado: " + dropdown.getSelectedItem().toString(),
+                                null,
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+                    }
+                }
+        );
         editButton.setPreferredSize(new Dimension(200, 30));
         JButton deleteButton = new JButton("Deletar");
+        deleteButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        ClientePanel.deleteClient(instance.clients, dropdown.getSelectedItem().toString());
+
+                        clientsListPanel.removeAll();
+                        ArrayList<String> clientsNames = instance.getClientsNames(instance.clients);
+                        for (String clientName : clientsNames) {
+                            clientsListPanel.add(new JLabel("- " + clientName));
+                            clientsListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+                        }
+
+                        dropdown.removeItem(dropdown.getSelectedItem().toString());
+                    }
+                }
+        );
         deleteButton.setPreferredSize(new Dimension(200, 30));
         editClientPanel.add(editButton);
         editClientPanel.add(deleteButton);
@@ -191,5 +221,17 @@ public class ClientePanel extends JPanel {
     public static void registerClient(ArrayList<Cliente> clients, String name, String address, String phone, String payment) {
         Cliente client = new Cliente(name, address, phone, payment);
         clients.add(client);
+    }
+
+    public static void deleteClient(ArrayList<Cliente> clients, String name) {
+        clients.removeIf(client -> Objects.equals(client.getNome(), name));
+    }
+
+    public static void editClient(ArrayList<Cliente> clients, String name, String address, String phone, String payment) {
+        for (Cliente client : clients) {
+            if (Objects.equals(client.getNome(), name)) {
+                client.edit(name, address, phone, payment);
+            }
+        }
     }
 }
