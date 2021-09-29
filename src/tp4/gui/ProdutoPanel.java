@@ -81,7 +81,7 @@ public class ProdutoPanel extends JPanel {
         productLabel.setPreferredSize(new Dimension(100, 30));
         editProductPanel.add(productLabel);
         String[] testProducts = {"Hambúrguer", "Batata frita", "Coca-Cola"};
-        JComboBox<String> dropdown = new JComboBox<String>(testProducts);
+        JComboBox<String> dropdown = new JComboBox<>(testProducts);
         dropdown.setPreferredSize(new Dimension(700, 30));
         editProductPanel.add(dropdown);
         editProductPanel.add(Box.createRigidArea(new Dimension(1000, 30)));
