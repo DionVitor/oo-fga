@@ -1,6 +1,5 @@
 package tp3;
 
-import tp3.CRUD;
 
 public class Cliente extends CRUD {
     private final String nome;
