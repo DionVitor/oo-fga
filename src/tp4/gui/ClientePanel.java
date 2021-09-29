@@ -174,6 +174,13 @@ public class ClientePanel extends JPanel {
                     public void actionPerformed(ActionEvent e) {
                         ClientePanel.deleteClient(instance.clients, dropdown.getSelectedItem().toString());
 
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "Cliente deletado: " + dropdown.getSelectedItem().toString(),
+                                null,
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+
                         clientsListPanel.removeAll();
                         ArrayList<String> clientsNames = instance.getClientsNames(instance.clients);
                         for (String clientName : clientsNames) {
