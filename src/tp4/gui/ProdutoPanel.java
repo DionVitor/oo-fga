@@ -71,6 +71,78 @@ public class ProdutoPanel extends JPanel {
         saveButton.setPreferredSize(new Dimension(200, 30));
         createProductPanel.add(saveButton);
 
+        // "Editar produto" tab add title
+        editProductPanel.add(Box.createRigidArea(new Dimension(1000, 10)));
+        editProductPanel.add(new JLabel("Editar produto"));
+        editProductPanel.add(Box.createRigidArea(new Dimension(1000, 20)));
+
+        // "Editar produto" tab add dropdown
+        JLabel productLabel = new JLabel("Produto:");
+        productLabel.setPreferredSize(new Dimension(100, 30));
+        editProductPanel.add(productLabel);
+        String[] testProducts = {"Hambúrguer", "Batata frita", "Coca-Cola"};
+        JComboBox<String> dropdown = new JComboBox<>(testProducts);
+        dropdown.setPreferredSize(new Dimension(700, 30));
+        editProductPanel.add(dropdown);
+        editProductPanel.add(Box.createRigidArea(new Dimension(1000, 30)));
+
+        // "Editar produto" tab add inputs
+        JLabel nameEditLabel = new JLabel("Nome:");
+        nameEditLabel.setPreferredSize(new Dimension(100, 30));
+        JTextField nameEditInput = new JTextField();
+        nameEditInput.setPreferredSize(new Dimension(700, 30));
+        JLabel priceEditLabel = new JLabel("Preço:");
+        priceEditLabel.setPreferredSize(new Dimension(100, 30));
+        JTextField priceEditInput = new JTextField();
+        priceEditInput.setPreferredSize(new Dimension(700, 30));
+        JLabel descEditLabel = new JLabel("Descrição:");
+        descEditLabel.setPreferredSize(new Dimension(100, 30));
+        JTextField descEditInput = new JTextField();
+        descEditInput.setPreferredSize(new Dimension(700, 30));
+        JLabel inventEditLabel = new JLabel("Estoque:");
+        inventEditLabel.setPreferredSize(new Dimension(100, 30));
+        JTextField inventEditInput = new JTextField();
+        inventEditInput.setPreferredSize(new Dimension(700, 30));
+
+        editProductPanel.add(nameEditLabel);
+        editProductPanel.add(nameEditInput);
+        editProductPanel.add(Box.createRigidArea(new Dimension(1000, 30)));
+        editProductPanel.add(priceEditLabel);
+        editProductPanel.add(priceEditInput);
+        editProductPanel.add(Box.createRigidArea(new Dimension(1000, 30)));
+        editProductPanel.add(descEditLabel);
+        editProductPanel.add(descEditInput);
+        editProductPanel.add(Box.createRigidArea(new Dimension(1000, 30)));
+        editProductPanel.add(inventEditLabel);
+        editProductPanel.add(inventEditInput);
+
+        // "Editar produto" tab add buttons
+        editProductPanel.add(Box.createRigidArea(new Dimension(1000, 30)));
+        JButton editButton = new JButton("Editar");
+        editButton.setPreferredSize(new Dimension(200, 30));
+        JButton deleteButton = new JButton("Deletar");
+        deleteButton.setPreferredSize(new Dimension(200, 30));
+        editProductPanel.add(editButton);
+        editProductPanel.add(deleteButton);
+
+        // "Listar produto" tab add title
+        listProductsPanel.add(Box.createRigidArea(new Dimension(1000, 10)));
+        listProductsPanel.add(new JLabel("Listar produtos"));
+        listProductsPanel.add(Box.createRigidArea(new Dimension(1000, 20)));
+
+        // "Listar produto" tab add list
+        JPanel productsListPanel = new JPanel();
+        productsListPanel.setLayout(new BoxLayout(productsListPanel, BoxLayout.PAGE_AXIS));
+        for (String testProduct : testProducts) {
+            productsListPanel.add(new JLabel("- " + testProduct));
+            productsListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        }
+        JScrollPane productsListScroll = new JScrollPane(productsListPanel);
+        productsListScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        productsListScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        productsListScroll.setPreferredSize(new Dimension(800, 350));
+        listProductsPanel.add(productsListScroll);
+
         this.add(tabbedPane);
     }
 }
