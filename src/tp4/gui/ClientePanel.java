@@ -1,12 +1,24 @@
 package tp4.gui;
 
+import tp4.domain.Cliente;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class ClientePanel extends JPanel {
+    private final ArrayList<Cliente> clients;
+
     public ClientePanel() {
         super(false);
+        this.clients = new ArrayList<>();
+        ClientePanel instance = this;
+        JPanel clientsListPanel = new JPanel();
+        final JComboBox<String> dropdown = new JComboBox<>();
 
         // Title
         this.add(Box.createRigidArea(new Dimension(1000, 8)));
@@ -65,6 +77,30 @@ public class ClientePanel extends JPanel {
         // Create client panel - button
         createClientPanel.add(Box.createRigidArea(new Dimension(1000, 80)));
         JButton saveButton = new JButton("Adicionar");
+        saveButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (!Objects.equals(nameInput.getText(), "")) {
+                            ClientePanel.registerClient(
+                                    instance.clients,
+                                    nameInput.getText(),
+                                    addressInput.getText(),
+                                    phoneInput.getText(),
+                                    paymentInput.getText()
+                            );
+                            JOptionPane.showMessageDialog(
+                                    null, "Cliente adicionado: " + nameInput.getText(), null, JOptionPane.INFORMATION_MESSAGE
+                            );
+                            clientsListPanel.add(new JLabel("- " + nameInput.getText()));
+                            clientsListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+                            dropdown.addItem(nameInput.getText());
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Campo nome nulo!", null, JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
+        );
         saveButton.setPreferredSize(new Dimension(200, 30));
         createClientPanel.add(saveButton);
 
@@ -77,17 +113,14 @@ public class ClientePanel extends JPanel {
         JLabel clientLabel = new JLabel("Cliente:");
         clientLabel.setPreferredSize(new Dimension(100, 30));
         editClientPanel.add(clientLabel);
-        String[] fakeChoices = {"a", "b", "c"};
-        JComboBox<String> dropdown = new JComboBox<String>(fakeChoices);
+        for (Cliente client : this.clients) {
+            dropdown.addItem(client.getNome());
+        }
         dropdown.setPreferredSize(new Dimension(700, 30));
         editClientPanel.add(dropdown);
         editClientPanel.add(Box.createRigidArea(new Dimension(1000, 30)));
 
         // Edit client panel - inputs
-        JLabel nameEditLabel = new JLabel("Nome:");
-        nameEditLabel.setPreferredSize(new Dimension(100, 30));
-        JTextField nameEditInput = new JTextField();
-        nameEditInput.setPreferredSize(new Dimension(700, 30));
         JLabel addressEditLabel = new JLabel("Endereço:");
         addressEditLabel.setPreferredSize(new Dimension(100, 30));
         JTextField addressEditInput = new JTextField();
@@ -101,9 +134,6 @@ public class ClientePanel extends JPanel {
         JTextField paymentEditInput = new JTextField();
         paymentEditInput.setPreferredSize(new Dimension(700, 30));
 
-        editClientPanel.add(nameEditLabel);
-        editClientPanel.add(nameEditInput);
-        editClientPanel.add(Box.createRigidArea(new Dimension(1000, 30)));
         editClientPanel.add(addressEditLabel);
         editClientPanel.add(addressEditInput);
         editClientPanel.add(Box.createRigidArea(new Dimension(1000, 30)));
@@ -116,8 +146,45 @@ public class ClientePanel extends JPanel {
         // Edit client panel - buttons
         editClientPanel.add(Box.createRigidArea(new Dimension(1000, 30)));
         JButton editButton = new JButton("Editar");
+        editButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        ClientePanel.editClient(
+                                instance.clients,
+                                dropdown.getSelectedItem().toString(),
+                                addressEditInput.getText(),
+                                phoneEditInput.getText(),
+                                paymentEditInput.getText()
+                        );
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "Cliente editado: " + dropdown.getSelectedItem().toString(),
+                                null,
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+                    }
+                }
+        );
         editButton.setPreferredSize(new Dimension(200, 30));
         JButton deleteButton = new JButton("Deletar");
+        deleteButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        ClientePanel.deleteClient(instance.clients, dropdown.getSelectedItem().toString());
+
+                        clientsListPanel.removeAll();
+                        ArrayList<String> clientsNames = instance.getClientsNames(instance.clients);
+                        for (String clientName : clientsNames) {
+                            clientsListPanel.add(new JLabel("- " + clientName));
+                            clientsListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+                        }
+
+                        dropdown.removeItem(dropdown.getSelectedItem().toString());
+                    }
+                }
+        );
         deleteButton.setPreferredSize(new Dimension(200, 30));
         editClientPanel.add(editButton);
         editClientPanel.add(deleteButton);
@@ -128,11 +195,10 @@ public class ClientePanel extends JPanel {
         listClientsPanel.add(Box.createRigidArea(new Dimension(1000, 20)));
 
         // List clients panel - list
-        String[] fakeClients = {"Dion", "Eurico"};
-        JPanel clientsListPanel = new JPanel();
+        ArrayList<String> clientsNames = this.getClientsNames(this.clients);
         clientsListPanel.setLayout(new BoxLayout(clientsListPanel, BoxLayout.PAGE_AXIS));
-        for (String fakeClient : fakeClients) {
-            clientsListPanel.add(new JLabel("- " + fakeClient));
+        for (String clientName : clientsNames) {
+            clientsListPanel.add(new JLabel("- " + clientName));
             clientsListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         }
         JScrollPane clientsListScroll = new JScrollPane(clientsListPanel);
@@ -142,5 +208,30 @@ public class ClientePanel extends JPanel {
         listClientsPanel.add(clientsListScroll);
 
         this.add(tabbedPane);
+    }
+
+    private ArrayList<String> getClientsNames(ArrayList<Cliente> clients) {
+        ArrayList<String> clientsNames = new ArrayList<>();
+        for (Cliente client : clients) {
+            clientsNames.add(client.getNome());
+        }
+        return clientsNames;
+    }
+
+    public static void registerClient(ArrayList<Cliente> clients, String name, String address, String phone, String payment) {
+        Cliente client = new Cliente(name, address, phone, payment);
+        clients.add(client);
+    }
+
+    public static void deleteClient(ArrayList<Cliente> clients, String name) {
+        clients.removeIf(client -> Objects.equals(client.getNome(), name));
+    }
+
+    public static void editClient(ArrayList<Cliente> clients, String name, String address, String phone, String payment) {
+        for (Cliente client : clients) {
+            if (Objects.equals(client.getNome(), name)) {
+                client.edit(name, address, phone, payment);
+            }
+        }
     }
 }
