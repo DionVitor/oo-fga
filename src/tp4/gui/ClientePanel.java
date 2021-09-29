@@ -17,6 +17,8 @@ public class ClientePanel extends JPanel {
         super(false);
         this.clients = new ArrayList<>();
         ClientePanel instance = this;
+        JPanel clientsListPanel = new JPanel();
+        final JComboBox<String> dropdown = new JComboBox<>();
 
         // Title
         this.add(Box.createRigidArea(new Dimension(1000, 8)));
@@ -90,6 +92,9 @@ public class ClientePanel extends JPanel {
                             JOptionPane.showMessageDialog(
                                     null, "Cliente adicionado: " + nameInput.getText(), null, JOptionPane.INFORMATION_MESSAGE
                             );
+                            clientsListPanel.add(new JLabel("- " + nameInput.getText()));
+                            clientsListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+                            dropdown.addItem(nameInput.getText());
                         } else {
                             JOptionPane.showMessageDialog(null, "Campo nome nulo!", null, JOptionPane.ERROR_MESSAGE);
                         }
@@ -108,8 +113,9 @@ public class ClientePanel extends JPanel {
         JLabel clientLabel = new JLabel("Cliente:");
         clientLabel.setPreferredSize(new Dimension(100, 30));
         editClientPanel.add(clientLabel);
-        String[] fakeChoices = {"a", "b", "c"};
-        JComboBox<String> dropdown = new JComboBox<String>(fakeChoices);
+        for (Cliente client : this.clients) {
+            dropdown.addItem(client.getNome());
+        }
         dropdown.setPreferredSize(new Dimension(700, 30));
         editClientPanel.add(dropdown);
         editClientPanel.add(Box.createRigidArea(new Dimension(1000, 30)));
@@ -160,7 +166,6 @@ public class ClientePanel extends JPanel {
 
         // List clients panel - list
         ArrayList<String> clientsNames = this.getClientsNames(this.clients);
-        JPanel clientsListPanel = new JPanel();
         clientsListPanel.setLayout(new BoxLayout(clientsListPanel, BoxLayout.PAGE_AXIS));
         for (String clientName : clientsNames) {
             clientsListPanel.add(new JLabel("- " + clientName));
