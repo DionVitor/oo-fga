@@ -185,12 +185,20 @@ public class ProdutoPanel extends JPanel {
                     ProdutoPanel.deleteProduct(instance.products,
                             Objects.requireNonNull(dropdown.getSelectedItem()).toString());
 
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Produto deletado: " + dropdown.getSelectedItem().toString(),
+                            null,
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+
                     productsListPanel.removeAll();
                     ArrayList<String> productsNames = instance.getProductsInfo(instance.products);
                     for (String productName : productsNames) {
                         productsListPanel.add(new JLabel("- " + productName));
                         productsListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
                     }
+
                     dropdown.removeItem(dropdown.getSelectedItem().toString());
                 }
         );
