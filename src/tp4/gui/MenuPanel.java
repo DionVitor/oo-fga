@@ -42,7 +42,18 @@ public class MenuPanel extends JPanel {
         createMenuPanel.add(typeInput);
 
         // Create menu panel - checkbox
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setPreferredSize(new Dimension(700, 250));
+        createMenuPanel.add(Box.createRigidArea(new Dimension(1000, 20)));
+        createMenuPanel.add(scrollPane);
 
+        // Create menu panel - button
+        createMenuPanel.add(Box.createRigidArea(new Dimension(1000, 20)));
+        JButton createMenuButton = new JButton("Adicionar");
+        createMenuButton.setPreferredSize(new Dimension(200, 30));
+        createMenuPanel.add(createMenuButton);
 
         this.add(tabbedPane);
     }
