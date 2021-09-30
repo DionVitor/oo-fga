@@ -36,7 +36,7 @@ public class Main {
 
         ClientePanel clientePanel = new ClientePanel(clients);
         MenuPanel menuPanel = new MenuPanel(menus, products);
-        ProdutoPanel produtoPanel = new ProdutoPanel(products, menuPanel, menus);
+        ProdutoPanel produtoPanel = new ProdutoPanel(products, menuPanel);
         VendaPanel vendaPanel = new VendaPanel();
 
         tabbedPane.addTab("Produto", icon, produtoPanel);

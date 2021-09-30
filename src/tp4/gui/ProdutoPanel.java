@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class ProdutoPanel extends JPanel {
 
-    public ProdutoPanel(ArrayList<Produto> products, MenuPanel menuPanel, ArrayList<Cardapio> menus) {
+    public ProdutoPanel(ArrayList<Produto> products, MenuPanel menuPanel) {
         super(false);
         JPanel productsListPanel = new JPanel();
         final JComboBox<String> dropdown = new JComboBox<>();
