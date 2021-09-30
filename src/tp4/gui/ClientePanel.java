@@ -11,11 +11,9 @@ import java.util.Objects;
 
 
 public class ClientePanel extends JPanel {
-    private final ArrayList<Cliente> clients;
 
-    public ClientePanel() {
+    public ClientePanel(ArrayList<Cliente> clients) {
         super(false);
-        this.clients = new ArrayList<>();
         ClientePanel instance = this;
         JPanel clientsListPanel = new JPanel();
         final JComboBox<String> dropdown = new JComboBox<>();
@@ -83,7 +81,7 @@ public class ClientePanel extends JPanel {
                     public void actionPerformed(ActionEvent e) {
                         if (!Objects.equals(nameInput.getText(), "")) {
                             ClientePanel.registerClient(
-                                    instance.clients,
+                                    clients,
                                     nameInput.getText(),
                                     addressInput.getText(),
                                     phoneInput.getText(),
@@ -113,7 +111,7 @@ public class ClientePanel extends JPanel {
         JLabel clientLabel = new JLabel("Cliente:");
         clientLabel.setPreferredSize(new Dimension(100, 30));
         editClientPanel.add(clientLabel);
-        for (Cliente client : this.clients) {
+        for (Cliente client : clients) {
             dropdown.addItem(client.getNome());
         }
         dropdown.setPreferredSize(new Dimension(700, 30));
@@ -151,7 +149,7 @@ public class ClientePanel extends JPanel {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         ClientePanel.editClient(
-                                instance.clients,
+                                clients,
                                 dropdown.getSelectedItem().toString(),
                                 addressEditInput.getText(),
                                 phoneEditInput.getText(),
@@ -172,7 +170,7 @@ public class ClientePanel extends JPanel {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        ClientePanel.deleteClient(instance.clients, dropdown.getSelectedItem().toString());
+                        ClientePanel.deleteClient(clients, dropdown.getSelectedItem().toString());
 
                         JOptionPane.showMessageDialog(
                                 null,
@@ -182,7 +180,7 @@ public class ClientePanel extends JPanel {
                         );
 
                         clientsListPanel.removeAll();
-                        ArrayList<String> clientsNames = instance.getClientsNames(instance.clients);
+                        ArrayList<String> clientsNames = instance.getClientsNames(clients);
                         for (String clientName : clientsNames) {
                             clientsListPanel.add(new JLabel("- " + clientName));
                             clientsListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
@@ -202,7 +200,7 @@ public class ClientePanel extends JPanel {
         listClientsPanel.add(Box.createRigidArea(new Dimension(1000, 20)));
 
         // List clients panel - list
-        ArrayList<String> clientsNames = this.getClientsNames(this.clients);
+        ArrayList<String> clientsNames = this.getClientsNames(clients);
         clientsListPanel.setLayout(new BoxLayout(clientsListPanel, BoxLayout.PAGE_AXIS));
         for (String clientName : clientsNames) {
             clientsListPanel.add(new JLabel("- " + clientName));
