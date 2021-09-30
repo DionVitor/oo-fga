@@ -1,7 +1,7 @@
 package tp4.gui;
 
 import tp4.domain.Cardapio;
-import tp4.domain.Cliente;
+import tp4.domain.Produto;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,11 +9,9 @@ import java.util.ArrayList;
 
 
 public class MenuPanel extends JPanel {
-    private final ArrayList<Cardapio> menus;
 
-    public MenuPanel() {
+    public MenuPanel(ArrayList<Cardapio> menus, ArrayList<Produto> products) {
         super(false);
-        this.menus = new ArrayList<Cardapio>();
         final JComboBox<String> dropdown = new JComboBox<>();
         JPanel menuListPanel = new JPanel();
 
@@ -51,7 +49,14 @@ public class MenuPanel extends JPanel {
         createMenuPanel.add(typeInput);
 
         // Create menu panel - checkbox
-        JScrollPane scrollPane = new JScrollPane();
+        ArrayList<String> menuTypesCheckBox = this.getMenuTypes(menus);
+        JPanel menuCheckBoxPanel = new JPanel();
+        menuCheckBoxPanel.setLayout(new BoxLayout(menuCheckBoxPanel, BoxLayout.PAGE_AXIS));
+        for (String menuType : menuTypesCheckBox){
+            menuCheckBoxPanel.add(new JLabel("- " + menuType));
+            menuCheckBoxPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        }
+        JScrollPane scrollPane = new JScrollPane(menuCheckBoxPanel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setPreferredSize(new Dimension(700, 250));
@@ -73,7 +78,7 @@ public class MenuPanel extends JPanel {
         JLabel menuLabel = new JLabel("Cardápio:");
         menuLabel.setPreferredSize(new Dimension(100, 30));
         editMenuPanel.add(menuLabel);
-        for (Cardapio menu : this.menus) {
+        for (Cardapio menu : menus) {
             dropdown.addItem(menu.getTipo());
         }
         dropdown.setPreferredSize(new Dimension(700, 30));
@@ -106,7 +111,7 @@ public class MenuPanel extends JPanel {
         listMenuPanel.add(Box.createRigidArea(new Dimension(1000, 20)));
 
         // List menu panel - list
-        ArrayList<String> menuTypes = this.getMenuTypes(this.menus);
+        ArrayList<String> menuTypes = this.getMenuTypes(menus);
         menuListPanel.setLayout(new BoxLayout(menuListPanel, BoxLayout.PAGE_AXIS));
         for (String menuType : menuTypes) {
             menuListPanel.add(new JLabel("- " + menuType));
@@ -128,6 +133,4 @@ public class MenuPanel extends JPanel {
         }
         return menuTypes;
     }
-
-
 }

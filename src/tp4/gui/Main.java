@@ -1,7 +1,13 @@
 package tp4.gui;
 
 
+import tp4.domain.Cardapio;
+import tp4.domain.Cliente;
+import tp4.domain.Produto;
+import tp4.domain.Venda;
+
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,9 +19,22 @@ public class Main {
         JTabbedPane tabbedPane = new JTabbedPane();
         Icon icon = new ImageIcon();
 
-        ProdutoPanel produtoPanel = new ProdutoPanel();
-        ClientePanel clientePanel = new ClientePanel();
-        MenuPanel menuPanel = new MenuPanel();
+        ArrayList<Cardapio> menus = new ArrayList<>();
+        ArrayList<Produto> products = new ArrayList<>();
+        ArrayList<Cliente> clients = new ArrayList<>();
+        ArrayList<Venda> sales = new ArrayList<>();
+
+        // Data injection
+        Produto apple = new Produto("Maça", "10", "Gostoso.", "1");
+        products.add(apple);
+        Produto banana = new Produto("Banana", "3", "Saboroso.", "10");
+        products.add(banana);
+        products.add(new Produto("Chiclete", "5", "Sem açúcar.", "100"));
+        menus.add(new Cardapio("Frutas", new Produto[] {apple, banana}));
+
+        ProdutoPanel produtoPanel = new ProdutoPanel(products);
+        ClientePanel clientePanel = new ClientePanel(clients);
+        MenuPanel menuPanel = new MenuPanel(menus, products);
         VendaPanel vendaPanel = new VendaPanel();
 
         tabbedPane.addTab("Produto", icon, produtoPanel);

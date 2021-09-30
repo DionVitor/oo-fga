@@ -8,12 +8,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class ProdutoPanel extends JPanel {
-    private final ArrayList<Produto> products;
 
-    public ProdutoPanel() {
+    public ProdutoPanel(ArrayList<Produto> products) {
         super(false);
-        this.products = new ArrayList<>();
-        ProdutoPanel instance = this;
         JPanel productsListPanel = new JPanel();
         final JComboBox<String> dropdown = new JComboBox<>();
 
@@ -83,7 +80,7 @@ public class ProdutoPanel extends JPanel {
                 e -> {
                     if (!Objects.equals(nameInput.getText(), "")) {
                         ProdutoPanel.registerProduct(
-                                instance.products,
+                                products,
                                 nameInput.getText(),
                                 priceInput.getText(),
                                 descInput.getText(),
@@ -120,7 +117,7 @@ public class ProdutoPanel extends JPanel {
         productLabel.setPreferredSize(new Dimension(100, 30));
         editProductPanel.add(productLabel);
 
-        for (Produto product : this.products) {
+        for (Produto product : products) {
             dropdown.addItem(product.getNome());
         }
 
@@ -162,7 +159,7 @@ public class ProdutoPanel extends JPanel {
         editButton.addActionListener(
                 e -> {
                     ProdutoPanel.editProduct(
-                            instance.products,
+                            products,
                             Objects.requireNonNull(dropdown.getSelectedItem()).toString(),
                             priceEditInput.getText(),
                             descEditInput.getText(),
@@ -182,7 +179,7 @@ public class ProdutoPanel extends JPanel {
 
         deleteButton.addActionListener(
                 e -> {
-                    ProdutoPanel.deleteProduct(instance.products,
+                    ProdutoPanel.deleteProduct(products,
                             Objects.requireNonNull(dropdown.getSelectedItem()).toString());
 
                     JOptionPane.showMessageDialog(
@@ -193,7 +190,7 @@ public class ProdutoPanel extends JPanel {
                     );
 
                     productsListPanel.removeAll();
-                    ArrayList<String> productsNames = instance.getProductsInfo(instance.products);
+                    ArrayList<String> productsNames = getProductsInfo(products);
                     for (String productName : productsNames) {
                         productsListPanel.add(new JLabel("- " + productName));
                         productsListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
@@ -213,7 +210,7 @@ public class ProdutoPanel extends JPanel {
         listProductsPanel.add(Box.createRigidArea(new Dimension(1000, 20)));
 
         // Add listing at "Listar produto" tab
-        ArrayList<String> productsNames = this.getProductsInfo(this.products);
+        ArrayList<String> productsNames = this.getProductsInfo(products);
         productsListPanel.setLayout(new BoxLayout(productsListPanel, BoxLayout.PAGE_AXIS));
         for (String productName : productsNames) {
             productsListPanel.add(new JLabel("- " + productName));
