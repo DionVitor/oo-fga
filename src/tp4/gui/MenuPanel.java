@@ -5,11 +5,13 @@ import tp4.domain.Produto;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class MenuPanel extends JPanel {
-
     public MenuPanel(ArrayList<Cardapio> menus, ArrayList<Produto> products) {
         super(false);
         final JComboBox<String> dropdown = new JComboBox<>();
@@ -49,11 +51,11 @@ public class MenuPanel extends JPanel {
         createMenuPanel.add(typeInput);
 
         // Create menu panel - checkbox
-        ArrayList<String> menuTypesCheckBox = this.getMenuTypes(menus);
+        ArrayList<String> productsCheckBox = this.getProductNames(products);
         JPanel menuCheckBoxPanel = new JPanel();
         menuCheckBoxPanel.setLayout(new BoxLayout(menuCheckBoxPanel, BoxLayout.PAGE_AXIS));
-        for (String menuType : menuTypesCheckBox){
-            menuCheckBoxPanel.add(new JLabel("- " + menuType));
+        for (String menuType : productsCheckBox){
+            menuCheckBoxPanel.add(new JCheckBox("- " + menuType));
             menuCheckBoxPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         }
         JScrollPane scrollPane = new JScrollPane(menuCheckBoxPanel);
@@ -66,6 +68,27 @@ public class MenuPanel extends JPanel {
         // Create menu panel - button
         createMenuPanel.add(Box.createRigidArea(new Dimension(1000, 20)));
         JButton createMenuButton = new JButton("Adicionar");
+        createMenuButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (!Objects.equals(typeInput.getText(), "")) {
+                            MenuPanel.registerMenu(
+                                    menus,
+                                    typeInput.getText()
+                            );
+                            JOptionPane.showMessageDialog(
+                                    null, "Cardápio adicionado: " + typeInput.getText(), null, JOptionPane.INFORMATION_MESSAGE
+                            );
+                            menuListPanel.add(new JLabel("- " + typeInput.getText()));
+                            menuListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+                            dropdown.addItem(typeInput.getText());
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Campo tipo nulo!", null, JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
+        );
         createMenuButton.setPreferredSize(new Dimension(200, 30));
         createMenuPanel.add(createMenuButton);
 
@@ -132,5 +155,18 @@ public class MenuPanel extends JPanel {
             menuTypes.add(menu.getTipo());
         }
         return menuTypes;
+    }
+
+    private ArrayList<String> getProductNames(ArrayList<Produto> products) {
+        ArrayList<String> productNames = new ArrayList<>();
+        for (Produto product : products) {
+            productNames.add(product.getNome());
+        }
+        return productNames;
+    }
+
+    public static void registerMenu(ArrayList<Cardapio> menus, String type) {
+        Cardapio menu = new Cardapio(type, new Produto[] {});
+        menus.add(menu);
     }
 }

@@ -9,6 +9,7 @@ import tp4.domain.Venda;
 import javax.swing.*;
 import java.util.ArrayList;
 
+
 public class Main {
     public static void main(String[] args) {
         JFrame window = new JFrame("Fast Food");
@@ -31,6 +32,7 @@ public class Main {
         products.add(banana);
         products.add(new Produto("Chiclete", "5", "Sem açúcar.", "100"));
         menus.add(new Cardapio("Frutas", new Produto[] {apple, banana}));
+        clients.add(new Cliente("Dion", "Gama", "619329842734", "Cartão"));
 
         ProdutoPanel produtoPanel = new ProdutoPanel(products);
         ClientePanel clientePanel = new ClientePanel(clients);
