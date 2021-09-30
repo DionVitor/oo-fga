@@ -1,6 +1,7 @@
 package tp4.gui;
 
 import tp4.domain.Cardapio;
+import tp4.domain.Cliente;
 import tp4.domain.Produto;
 
 import javax.swing.*;
@@ -121,6 +122,30 @@ public class MenuPanel extends JPanel {
         // Edit menu panel - buttons
         JButton editButton = new JButton("Editar");
         JButton deleteButton = new JButton("Deletar");
+        deleteButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        MenuPanel.deleteMenu(menus, dropdown.getSelectedItem().toString());
+
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "Cliente deletado: " + dropdown.getSelectedItem().toString(),
+                                null,
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+
+                        menuListPanel.removeAll();
+                        ArrayList<String> menuTypes = getMenuTypes(menus);
+                        for (String menuType : menuTypes) {
+                            menuListPanel.add(new JLabel("- " + menuType));
+                            menuListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+                        }
+
+                        dropdown.removeItem(dropdown.getSelectedItem().toString());
+                    }
+                }
+        );
         editButton.setPreferredSize(new Dimension(200, 30));
         deleteButton.setPreferredSize(new Dimension(200, 30));
 
@@ -168,5 +193,9 @@ public class MenuPanel extends JPanel {
     public static void registerMenu(ArrayList<Cardapio> menus, String type) {
         Cardapio menu = new Cardapio(type, new Produto[] {});
         menus.add(menu);
+    }
+
+    public static void deleteMenu(ArrayList<Cardapio> menus, String type) {
+        menus.removeIf(menu -> Objects.equals(menu.getTipo(), type));
     }
 }

@@ -14,7 +14,6 @@ public class ClientePanel extends JPanel {
 
     public ClientePanel(ArrayList<Cliente> clients) {
         super(false);
-        ClientePanel instance = this;
         JPanel clientsListPanel = new JPanel();
         final JComboBox<String> dropdown = new JComboBox<>();
 
@@ -180,7 +179,7 @@ public class ClientePanel extends JPanel {
                         );
 
                         clientsListPanel.removeAll();
-                        ArrayList<String> clientsNames = instance.getClientsNames(clients);
+                        ArrayList<String> clientsNames = getClientsNames(clients);
                         for (String clientName : clientsNames) {
                             clientsListPanel.add(new JLabel("- " + clientName));
                             clientsListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
