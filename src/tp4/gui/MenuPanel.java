@@ -121,6 +121,33 @@ public class MenuPanel extends JPanel {
 
         // Edit menu panel - buttons
         JButton editButton = new JButton("Editar");
+        editButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (!Objects.equals(typeEditInput.getText(), "")) {
+                            MenuPanel.editMenu(menus, dropdown.getSelectedItem().toString(), typeEditInput.getText());
+                            JOptionPane.showMessageDialog(
+                                    null,
+                                    "Cardápio editado: " + dropdown.getSelectedItem().toString(),
+                                    null,
+                                    JOptionPane.INFORMATION_MESSAGE
+                            );
+
+                            menuListPanel.removeAll();
+                            ArrayList<String> menuTypes = getMenuTypes(menus);
+                            for (String menuType : menuTypes) {
+                                menuListPanel.add(new JLabel("- " + menuType));
+                                menuListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+                            }
+                            dropdown.removeItem(dropdown.getSelectedItem().toString());
+                            dropdown.addItem(typeEditInput.getText());
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Campo tipo nulo!", null, JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
+        );
         JButton deleteButton = new JButton("Deletar");
         deleteButton.addActionListener(
                 new ActionListener() {
@@ -130,7 +157,7 @@ public class MenuPanel extends JPanel {
 
                         JOptionPane.showMessageDialog(
                                 null,
-                                "Cliente deletado: " + dropdown.getSelectedItem().toString(),
+                                "Cardápio deletado: " + dropdown.getSelectedItem().toString(),
                                 null,
                                 JOptionPane.INFORMATION_MESSAGE
                         );
@@ -197,5 +224,12 @@ public class MenuPanel extends JPanel {
 
     public static void deleteMenu(ArrayList<Cardapio> menus, String type) {
         menus.removeIf(menu -> Objects.equals(menu.getTipo(), type));
+    }
+    public static void editMenu(ArrayList<Cardapio> menus, String type, String newType) {
+        for (Cardapio menu : menus) {
+            if (Objects.equals(menu.getTipo(), type)) {
+                menu.edit(newType);
+            }
+        }
     }
 }
