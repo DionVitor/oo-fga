@@ -5,16 +5,16 @@ import javax.swing.*;
 
 public class TabbedPane extends JTabbedPane {
     public TabbedPane() {
-        Icon icone = new ImageIcon();
+        Icon icon = new ImageIcon();
 
         ProdutoPanel produtoPanel = new ProdutoPanel();
         ClientePanel clientePanel = new ClientePanel();
-        CardapioPanel cardapioPanel = new CardapioPanel();
+        MenuPanel menuPanel = new MenuPanel();
         VendaPanel vendaPanel = new VendaPanel();
 
-        this.addTab("Produto", icone, produtoPanel);
-        this.addTab("Cliente", icone, clientePanel);
-        this.addTab("Cardápio", icone, cardapioPanel);
-        this.addTab("Venda", icone, vendaPanel);
+        this.addTab("Produto", icon, produtoPanel);
+        this.addTab("Cliente", icon, clientePanel);
+        this.addTab("Cardápio", icon, menuPanel);
+        this.addTab("Venda", icon, vendaPanel);
     }
 }

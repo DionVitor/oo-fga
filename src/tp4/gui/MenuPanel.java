@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class CardapioPanel extends JPanel {
-    public CardapioPanel() {
+public class MenuPanel extends JPanel {
+    public MenuPanel() {
         super(false);
 
         // Title
@@ -27,11 +27,21 @@ public class CardapioPanel extends JPanel {
         tabbedPane.addTab("Editar cardápio", icon, editMenuPanel);
         tabbedPane.addTab("Listar cardápios", icon, listMenuPanel);
 
-        // Create Menu Panel - title
+        // Create menu panel - title
         createMenuPanel.add(Box.createRigidArea(new Dimension(1000, 10)));
         createMenuPanel.add(new JLabel("Adicionar cardápio"));
         createMenuPanel.add(Box.createRigidArea(new Dimension(1000, 20)));
 
+        // Create menu panel - input
+        JLabel typeLabel = new JLabel("Tipo:");
+        typeLabel.setPreferredSize(new Dimension(100, 30));
+        JTextField typeInput = new JTextField();
+        typeInput.setPreferredSize(new Dimension(700, 30));
+
+        createMenuPanel.add(typeLabel);
+        createMenuPanel.add(typeInput);
+
+        // Create menu panel - checkbox
 
 
         this.add(tabbedPane);

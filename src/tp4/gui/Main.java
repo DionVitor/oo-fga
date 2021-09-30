@@ -1,11 +1,16 @@
 package tp4.gui;
 
 
+import javax.swing.*;
+
 public class Main {
     public static void main(String[] args) {
-        View janela = new View("Fast Food");
+        JFrame window = new JFrame("Fast Food");
+        window.setVisible(true);
+        window.setSize(1000, 600);
+        window.setLocationRelativeTo(null);
 
         TabbedPane tabbedPane = new TabbedPane();
-        janela.add(tabbedPane);
+        window.add(tabbedPane);
     }
 }
