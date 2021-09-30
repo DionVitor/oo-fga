@@ -1,5 +1,6 @@
 package tp4.gui;
 
+import tp4.domain.Cardapio;
 import tp4.domain.Produto;
 
 import javax.swing.*;
@@ -7,9 +8,10 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
+
 public class ProdutoPanel extends JPanel {
 
-    public ProdutoPanel(ArrayList<Produto> products) {
+    public ProdutoPanel(ArrayList<Produto> products, MenuPanel menuPanel, ArrayList<Cardapio> menus) {
         super(false);
         JPanel productsListPanel = new JPanel();
         final JComboBox<String> dropdown = new JComboBox<>();
@@ -95,6 +97,9 @@ public class ProdutoPanel extends JPanel {
                         productsListPanel.add(new JLabel("- " + nameInput.getText()));
                         productsListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
                         dropdown.addItem(nameInput.getText());
+
+                        menuPanel.menuCheckBoxPanel.add(new JCheckBox("- " + nameInput.getText()));
+                        menuPanel.menuCheckBoxPanel.add(Box.createRigidArea(new Dimension(0, 10)));
                     } else {
                         JOptionPane.showMessageDialog(null,
                                 "Campo nome nulo",
@@ -197,6 +202,12 @@ public class ProdutoPanel extends JPanel {
                     }
 
                     dropdown.removeItem(dropdown.getSelectedItem().toString());
+
+                    menuPanel.menuCheckBoxPanel.removeAll();
+                    for (Produto product : products) {
+                        menuPanel.menuCheckBoxPanel.add(new JCheckBox("- " + product.getNome()));
+                        menuPanel.menuCheckBoxPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+                    }
                 }
         );
 

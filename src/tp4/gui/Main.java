@@ -34,9 +34,9 @@ public class Main {
         menus.add(new Cardapio("Frutas", new Produto[] {apple, banana}));
         clients.add(new Cliente("Dion", "Gama", "619329842734", "Cartão"));
 
-        ProdutoPanel produtoPanel = new ProdutoPanel(products);
         ClientePanel clientePanel = new ClientePanel(clients);
         MenuPanel menuPanel = new MenuPanel(menus, products);
+        ProdutoPanel produtoPanel = new ProdutoPanel(products, menuPanel, menus);
         VendaPanel vendaPanel = new VendaPanel();
 
         tabbedPane.addTab("Produto", icon, produtoPanel);

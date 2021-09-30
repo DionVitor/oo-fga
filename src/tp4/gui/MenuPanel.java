@@ -1,7 +1,6 @@
 package tp4.gui;
 
 import tp4.domain.Cardapio;
-import tp4.domain.Cliente;
 import tp4.domain.Produto;
 
 import javax.swing.*;
@@ -13,6 +12,8 @@ import java.util.Objects;
 
 
 public class MenuPanel extends JPanel {
+    public JPanel menuCheckBoxPanel;
+
     public MenuPanel(ArrayList<Cardapio> menus, ArrayList<Produto> products) {
         super(false);
         final JComboBox<String> dropdown = new JComboBox<>();
@@ -53,13 +54,13 @@ public class MenuPanel extends JPanel {
 
         // Create menu panel - checkbox
         ArrayList<String> productsCheckBox = this.getProductNames(products);
-        JPanel menuCheckBoxPanel = new JPanel();
-        menuCheckBoxPanel.setLayout(new BoxLayout(menuCheckBoxPanel, BoxLayout.PAGE_AXIS));
+        this.menuCheckBoxPanel = new JPanel();
+        this.menuCheckBoxPanel.setLayout(new BoxLayout(this.menuCheckBoxPanel, BoxLayout.PAGE_AXIS));
         for (String menuType : productsCheckBox){
-            menuCheckBoxPanel.add(new JCheckBox("- " + menuType));
-            menuCheckBoxPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+            this.menuCheckBoxPanel.add(new JCheckBox("- " + menuType));
+            this.menuCheckBoxPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         }
-        JScrollPane scrollPane = new JScrollPane(menuCheckBoxPanel);
+        JScrollPane scrollPane = new JScrollPane(this.menuCheckBoxPanel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setPreferredSize(new Dimension(700, 250));
