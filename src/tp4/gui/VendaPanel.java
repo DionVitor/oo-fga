@@ -96,9 +96,9 @@ public class VendaPanel extends JPanel {
                             null,
                             JOptionPane.INFORMATION_MESSAGE
                     );
-                    saleListPanel.add(new JLabel("Cliente: " + clientDropdown.getSelectedItem() + " - Produto: " + productDropdown.getSelectedItem() + " - Quantidade: " + quantityInput.getText()));
+                    saleListPanel.add(new JLabel("Cliente: " + clientDropdown.getSelectedItem().toString() + " - Produto: " + productDropdown.getSelectedItem().toString() + " - Quantidade: " + quantityInput.getText()));
                     saleListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-                    //clientDropdownEdit.addItem(clientDropdown());
+                    clientDropdownEdit.addItem(clientDropdown.getSelectedItem().toString() + " - " + productDropdown.getSelectedItem().toString() + " - " + quantityInput.getText());
                 }
         );
         registerSalePanel.setPreferredSize(new Dimension(200, 30));
@@ -120,20 +120,15 @@ public class VendaPanel extends JPanel {
         editSalePanel.add(clientDropdownEdit);
         editSalePanel.add(Box.createRigidArea(new Dimension(1000, 30)));
 
-
-
-
         // Title of list sales tab
         listSalePanel.add(Box.createRigidArea(new Dimension(1000, 10)));
         listSalePanel.add(new JLabel("Listar vendas"));
         listSalePanel.add(Box.createRigidArea(new Dimension(1000, 20)));
 
         // List sales
-        ArrayList<String> salesInfos = this.getSalesInfo(sales);
-        System.out.println(salesInfos);
         saleListPanel.setLayout(new BoxLayout(saleListPanel, BoxLayout.PAGE_AXIS));
-        for (String saleInfo : salesInfos) {
-            saleListPanel.add(new JLabel("- " + saleInfo));
+        for (Venda sale : sales) {
+            saleListPanel.add(new JLabel("Cliente: " + sale.getNomeCliente() + " - Produto: " + sale.getNomeProduto() + " - Quantidade: " + sale.getQuantProduto()));
             saleListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         }
         JScrollPane salesListScroll = new JScrollPane(saleListPanel);
@@ -143,14 +138,6 @@ public class VendaPanel extends JPanel {
         listSalePanel.add(salesListScroll);
 
         this.add(tabbedPane);
-    }
-
-    private ArrayList<String> getSalesInfo(ArrayList<Venda> sales) {
-        ArrayList<String> salesInfos = new ArrayList<>();
-        for (Venda sale : sales) {
-            salesInfos.add(sale.getNomeCliente());
-        }
-        return salesInfos;
     }
 
     public static void registerSale(ArrayList<Venda> sales, String nameClient, String nameProduct, String quant) {
