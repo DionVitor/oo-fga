@@ -1,6 +1,5 @@
 package tp4.gui;
 
-
 import tp4.domain.Cardapio;
 import tp4.domain.Cliente;
 import tp4.domain.Produto;
@@ -8,7 +7,6 @@ import tp4.domain.Venda;
 
 import javax.swing.*;
 import java.util.ArrayList;
-
 
 public class Main {
     public static void main(String[] args) {
@@ -33,11 +31,12 @@ public class Main {
         products.add(new Produto("Chiclete", "5", "Sem açúcar.", "100"));
         menus.add(new Cardapio("Frutas", new Produto[] {apple, banana}));
         clients.add(new Cliente("Dion", "Gama", "619329842734", "Cartão"));
+        sales.add(new Venda("Dion", "Batata", "4"));
 
-        ClientePanel clientePanel = new ClientePanel(clients);
         MenuPanel menuPanel = new MenuPanel(menus, products);
-        ProdutoPanel produtoPanel = new ProdutoPanel(products, menuPanel);
-        VendaPanel vendaPanel = new VendaPanel();
+        VendaPanel vendaPanel = new VendaPanel(clients, products, sales);
+        ClientePanel clientePanel = new ClientePanel(clients, vendaPanel);
+        ProdutoPanel produtoPanel = new ProdutoPanel(products, menuPanel, vendaPanel);
 
         tabbedPane.addTab("Produto", icon, produtoPanel);
         tabbedPane.addTab("Cliente", icon, clientePanel);

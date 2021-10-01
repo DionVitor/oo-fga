@@ -12,7 +12,7 @@ import java.util.Objects;
 
 public class ClientePanel extends JPanel {
 
-    public ClientePanel(ArrayList<Cliente> clients) {
+    public ClientePanel(ArrayList<Cliente> clients, VendaPanel vendaPanel) {
         super(false);
         JPanel clientsListPanel = new JPanel();
         final JComboBox<String> dropdown = new JComboBox<>();
@@ -92,6 +92,8 @@ public class ClientePanel extends JPanel {
                             clientsListPanel.add(new JLabel("- " + nameInput.getText()));
                             clientsListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
                             dropdown.addItem(nameInput.getText());
+                            vendaPanel.clientDropdown.addItem(nameInput.getText());
+                            vendaPanel.clientDropdownEdit.addItem(nameInput.getText());
                         } else {
                             JOptionPane.showMessageDialog(null, "Campo nome nulo!", null, JOptionPane.ERROR_MESSAGE);
                         }
@@ -185,7 +187,9 @@ public class ClientePanel extends JPanel {
                             clientsListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
                         }
 
+                        vendaPanel.clientDropdown.removeItem(dropdown.getSelectedItem().toString());
                         dropdown.removeItem(dropdown.getSelectedItem().toString());
+                        vendaPanel.clientDropdownEdit.removeItem(nameInput.getText());
                     }
                 }
         );

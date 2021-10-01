@@ -3,9 +3,9 @@ package tp4.domain;
 public class Venda extends CRUD {
     private final String nomeCliente;
     private final String nomeProduto;
-    private final int quantProduto;
+    private final String quantProduto;
 
-    public Venda(String nomeCliente, String nomeProduto, int quantProduto) {
+    public Venda(String nomeCliente, String nomeProduto, String quantProduto) {
         this.nomeCliente = nomeCliente;
         this.nomeProduto = nomeProduto;
         this.quantProduto = quantProduto;
@@ -36,7 +36,7 @@ public class Venda extends CRUD {
         return this.nomeProduto;
     }
 
-    public int getQuantProduto() {
+    public String getQuantProduto() {
         return this.quantProduto;
     }
 }

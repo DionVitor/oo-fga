@@ -8,7 +8,7 @@ public class Main {
         Produto produto = new Produto("Maça", "12.50", "Uma deliciosa fruta.", "10");
         Produto[] produtos = {produto};
         Cardapio cardapio = new Cardapio("Frutas", produtos);
-        Venda venda = new Venda("João", "Maça", 2);
+        Venda venda = new Venda("João", "Maça", "2");
 
         System.out.println(cliente.getNome());
         System.out.println(cliente.getEndereco());

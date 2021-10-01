@@ -1,6 +1,5 @@
 package tp4.gui;
 
-import tp4.domain.Cardapio;
 import tp4.domain.Produto;
 
 import javax.swing.*;
@@ -8,10 +7,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
-
 public class ProdutoPanel extends JPanel {
 
-    public ProdutoPanel(ArrayList<Produto> products, MenuPanel menuPanel) {
+    public ProdutoPanel(ArrayList<Produto> products, MenuPanel menuPanel, VendaPanel vendaPanel) {
         super(false);
         JPanel productsListPanel = new JPanel();
         final JComboBox<String> dropdown = new JComboBox<>();
@@ -97,6 +95,8 @@ public class ProdutoPanel extends JPanel {
                         productsListPanel.add(new JLabel("- " + nameInput.getText()));
                         productsListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
                         dropdown.addItem(nameInput.getText());
+                        vendaPanel.productDropdown.addItem(nameInput.getText());
+                        vendaPanel.productDropdownEdit.addItem(nameInput.getText());
 
                         menuPanel.menuCheckBoxPanel.add(new JCheckBox("- " + nameInput.getText()));
                         menuPanel.menuCheckBoxPanel.add(Box.createRigidArea(new Dimension(0, 10)));
@@ -201,7 +201,9 @@ public class ProdutoPanel extends JPanel {
                         productsListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
                     }
 
+                    vendaPanel.productDropdown.removeItem(dropdown.getSelectedItem().toString());
                     dropdown.removeItem(dropdown.getSelectedItem().toString());
+                    vendaPanel.productDropdownEdit.removeItem(nameInput.getText().toString());
 
                     menuPanel.menuCheckBoxPanel.removeAll();
                     for (Produto product : products) {
