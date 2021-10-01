@@ -37,12 +37,15 @@ public class Main {
         VendaPanel vendaPanel = new VendaPanel(clients, products, sales);
         ClientePanel clientePanel = new ClientePanel(clients, vendaPanel);
         ProdutoPanel produtoPanel = new ProdutoPanel(products, menuPanel, vendaPanel);
+        ProductsFilterPanel productsFilterPanel = new ProductsFilterPanel(products);
+        CheaperProductsFilterPanel cheaperProductsFilterPanel = new CheaperProductsFilterPanel(products);
 
         tabbedPane.addTab("Produto", icon, produtoPanel);
         tabbedPane.addTab("Cliente", icon, clientePanel);
         tabbedPane.addTab("Cardápio", icon, menuPanel);
         tabbedPane.addTab("Venda", icon, vendaPanel);
-
+        tabbedPane.addTab("Produtos mais caros", icon, productsFilterPanel);
+        tabbedPane.addTab("Produtos mais baratos", icon, cheaperProductsFilterPanel);
         window.add(tabbedPane);
         window.setVisible(true);
     }
