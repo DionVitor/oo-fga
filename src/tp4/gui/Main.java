@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         JFrame window = new JFrame("Fast Food");
-        window.setVisible(true);
         window.setSize(1000, 600);
         window.setLocationRelativeTo(null);
 
@@ -44,5 +43,6 @@ public class Main {
         tabbedPane.addTab("Venda", icon, vendaPanel);
 
         window.add(tabbedPane);
+        window.setVisible(true);
     }
 }
