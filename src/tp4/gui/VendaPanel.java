@@ -133,6 +133,35 @@ public class VendaPanel extends JPanel {
 
         // Edit sale panel - buttons
         JButton editButton = new JButton("Editar");
+        editButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String _data = clientDropdownEdit.getSelectedItem().toString();
+                        String[] data = _data.split(" - ");
+                        if (!Objects.equals(quantityEditInput.getText(), "")) {
+                            editSale(sales, data[0], data[1], quantityEditInput.getText());
+
+                            JOptionPane.showMessageDialog(
+                                    null,
+                                    "Venda editada: " + _data,
+                                    null,
+                                    JOptionPane.INFORMATION_MESSAGE
+                            );
+                            clientDropdownEdit.removeItem(clientDropdownEdit.getSelectedItem().toString());
+                            clientDropdownEdit.addItem(data[0] + " - " + data[1] + " - " + quantityEditInput.getText());
+                            saleListPanel.removeAll();
+                            for (Venda sale : sales) {
+                                saleListPanel.add(new JLabel("Cliente: " + sale.getNomeCliente() + " - Produto: " + sale.getNomeProduto() + " - Quantidade: " + sale.getQuantProduto()));
+                                saleListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Campo quantidade nulo!", null, JOptionPane.ERROR_MESSAGE);
+                        }
+
+                    }
+                }
+        );
         editButton.setPreferredSize(new Dimension(200, 30));
         JButton deleteButton = new JButton("Deletar");
         deleteButton.addActionListener(
@@ -198,7 +227,7 @@ public class VendaPanel extends JPanel {
     public static void editSale(ArrayList<Venda> sales, String nameClient, String nameProduct, String quantity) {
         for (Venda sale : sales) {
             if (Objects.equals(sale.getNomeCliente(), nameClient)) {
-                //sale.edit(nameClient, nameProduct, quantity);
+                sale.edit(nameClient, nameProduct, quantity);
             }
         }
     }
