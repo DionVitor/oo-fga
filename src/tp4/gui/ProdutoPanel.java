@@ -1,6 +1,5 @@
 package tp4.gui;
 
-import tp4.domain.Cardapio;
 import tp4.domain.Produto;
 
 import javax.swing.*;

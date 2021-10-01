@@ -38,12 +38,15 @@ public class Main {
         MenuPanel menuPanel = new MenuPanel(menus, products);
         ProdutoPanel produtoPanel = new ProdutoPanel(products, menuPanel);
         VendaPanel vendaPanel = new VendaPanel();
+        ProductsFilterPanel productsFilterPanel = new ProductsFilterPanel(products);
+        CheaperProductsFilterPanel cheaperProductsFilterPanel = new CheaperProductsFilterPanel(products);
 
         tabbedPane.addTab("Produto", icon, produtoPanel);
         tabbedPane.addTab("Cliente", icon, clientePanel);
         tabbedPane.addTab("Cardápio", icon, menuPanel);
         tabbedPane.addTab("Venda", icon, vendaPanel);
-
+        tabbedPane.addTab("Produtos mais caros", icon, productsFilterPanel);
+        tabbedPane.addTab("Produtos mais baratos", icon, cheaperProductsFilterPanel);
         window.add(tabbedPane);
     }
 }
