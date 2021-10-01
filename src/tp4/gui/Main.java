@@ -1,6 +1,5 @@
 package tp4.gui;
 
-
 import tp4.domain.Cardapio;
 import tp4.domain.Cliente;
 import tp4.domain.Produto;
@@ -13,7 +12,6 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         JFrame window = new JFrame("Fast Food");
-        window.setVisible(true);
         window.setSize(1000, 600);
         window.setLocationRelativeTo(null);
 
@@ -33,11 +31,12 @@ public class Main {
         products.add(new Produto("Chiclete", "5", "Sem açúcar.", "100"));
         menus.add(new Cardapio("Frutas", new Produto[] {apple, banana}));
         clients.add(new Cliente("Dion", "Gama", "619329842734", "Cartão"));
+        sales.add(new Venda("Dion", "Batata", "4"));
 
-        ClientePanel clientePanel = new ClientePanel(clients);
         MenuPanel menuPanel = new MenuPanel(menus, products);
-        ProdutoPanel produtoPanel = new ProdutoPanel(products, menuPanel);
-        VendaPanel vendaPanel = new VendaPanel();
+        VendaPanel vendaPanel = new VendaPanel(clients, products, sales);
+        ClientePanel clientePanel = new ClientePanel(clients, vendaPanel);
+        ProdutoPanel produtoPanel = new ProdutoPanel(products, menuPanel, vendaPanel);
         ProductsFilterPanel productsFilterPanel = new ProductsFilterPanel(products);
         CheaperProductsFilterPanel cheaperProductsFilterPanel = new CheaperProductsFilterPanel(products);
 
@@ -48,5 +47,6 @@ public class Main {
         tabbedPane.addTab("Produtos mais caros", icon, productsFilterPanel);
         tabbedPane.addTab("Produtos mais baratos", icon, cheaperProductsFilterPanel);
         window.add(tabbedPane);
+        window.setVisible(true);
     }
 }
