@@ -7,6 +7,8 @@ import tp4.domain.Venda;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -120,6 +122,48 @@ public class VendaPanel extends JPanel {
         editSalePanel.add(clientDropdownEdit);
         editSalePanel.add(Box.createRigidArea(new Dimension(1000, 30)));
 
+        // Edit sale panel - input
+        JLabel quantityEditLabel = new JLabel("Quantidade:");
+        quantityEditLabel.setPreferredSize(new Dimension(100, 30));
+        JTextField quantityEditInput = new JTextField();
+        quantityEditInput.setPreferredSize(new Dimension(700, 30));
+
+        editSalePanel.add(quantityEditLabel);
+        editSalePanel.add(quantityEditInput);
+
+        // Edit sale panel - buttons
+        JButton editButton = new JButton("Editar");
+        editButton.setPreferredSize(new Dimension(200, 30));
+        JButton deleteButton = new JButton("Deletar");
+        deleteButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String _data = clientDropdownEdit.getSelectedItem().toString();
+                        String[] data = _data.split(" - ");
+                        deleteSale(sales, data[0], data[1], data[2]);
+
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "Venda deletada: " + clientDropdownEdit.getSelectedItem().toString(),
+                                null,
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+
+                        clientDropdownEdit.removeItem(clientDropdownEdit.getSelectedItem().toString());
+                        saleListPanel.removeAll();
+                        for (Venda sale : sales) {
+                            saleListPanel.add(new JLabel("Cliente: " + sale.getNomeCliente() + " - Produto: " + sale.getNomeProduto() + " - Quantidade: " + sale.getQuantProduto()));
+                            saleListPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+                        }
+                    }
+                }
+        );
+        deleteButton.setPreferredSize(new Dimension(200, 30));
+
+        editSalePanel.add(Box.createRigidArea(new Dimension(1000, 200)));
+        editSalePanel.add(editButton);
+        editSalePanel.add(deleteButton);
         // Title of list sales tab
         listSalePanel.add(Box.createRigidArea(new Dimension(1000, 10)));
         listSalePanel.add(new JLabel("Listar vendas"));
@@ -140,19 +184,21 @@ public class VendaPanel extends JPanel {
         this.add(tabbedPane);
     }
 
-    public static void registerSale(ArrayList<Venda> sales, String nameClient, String nameProduct, String quant) {
-        Venda sale = new Venda(nameClient, nameProduct, quant);
+    public static void registerSale(ArrayList<Venda> sales, String nameClient, String nameProduct, String quantity) {
+        Venda sale = new Venda(nameClient, nameProduct, quantity);
         sales.add(sale);
     }
 
-    public static void deleteSale(ArrayList<Venda> sales, String nameClient) {
-        sales.removeIf(product -> Objects.equals(product.getNomeCliente(), nameClient));
+    public static void deleteSale(ArrayList<Venda> sales, String nameClient, String productName, String quantity) {
+        sales.removeIf(sale -> Objects.equals(sale.getNomeCliente(), nameClient) &&
+                Objects.equals(sale.getNomeProduto(), productName) &&
+                Objects.equals(sale.getQuantProduto(), quantity));
     }
 
-    public static void editSale(ArrayList<Venda> sales, String nameClient, String nameProduct, String quant) {
+    public static void editSale(ArrayList<Venda> sales, String nameClient, String nameProduct, String quantity) {
         for (Venda sale : sales) {
             if (Objects.equals(sale.getNomeCliente(), nameClient)) {
-                //sale.edit(nameClient, nameProduct, quant);
+                //sale.edit(nameClient, nameProduct, quantity);
             }
         }
     }

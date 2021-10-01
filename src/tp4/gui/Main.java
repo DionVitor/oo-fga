@@ -8,6 +8,7 @@ import tp4.domain.Venda;
 import javax.swing.*;
 import java.util.ArrayList;
 
+
 public class Main {
     public static void main(String[] args) {
         JFrame window = new JFrame("Fast Food");
