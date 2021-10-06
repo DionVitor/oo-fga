@@ -1,6 +1,6 @@
 package tp5.domain;
 
-import tp4.domain.CRUD;
+import tp5.domain.CRUD;
 
 public class Cliente extends CRUD {
     private String nome;

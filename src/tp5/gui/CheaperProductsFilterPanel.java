@@ -1,6 +1,6 @@
 package tp5.gui;
 
-import tp4.domain.Produto;
+import tp5.domain.Produto;
 
 import javax.swing.*;
 import java.awt.*;

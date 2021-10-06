@@ -1,7 +1,5 @@
 package tp5.domain;
 
-import tp4.domain.CRUD;
-
 public class Produto extends CRUD {
     private String nome;
     private String preco;

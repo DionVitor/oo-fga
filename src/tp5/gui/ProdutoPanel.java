@@ -1,8 +1,8 @@
 package tp5.gui;
 
-import tp4.domain.Produto;
-import tp4.gui.MenuPanel;
-import tp4.gui.VendaPanel;
+import tp5.domain.Produto;
+import tp5.gui.MenuPanel;
+import tp5.gui.VendaPanel;
 
 import javax.swing.*;
 import java.awt.*;

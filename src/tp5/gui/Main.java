@@ -1,10 +1,10 @@
 package tp5.gui;
 
-import tp4.domain.Cardapio;
-import tp4.domain.Cliente;
-import tp4.domain.Produto;
-import tp4.domain.Venda;
-import tp4.gui.*;
+import tp5.domain.Cardapio;
+import tp5.domain.Cliente;
+import tp5.domain.Produto;
+import tp5.domain.Venda;
+import tp5.gui.*;
 
 import javax.swing.*;
 import java.util.ArrayList;

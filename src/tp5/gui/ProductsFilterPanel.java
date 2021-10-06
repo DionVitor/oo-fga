@@ -1,11 +1,9 @@
 package tp5.gui;
 
-import tp4.domain.Produto;
+import tp5.domain.Produto;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Objects;

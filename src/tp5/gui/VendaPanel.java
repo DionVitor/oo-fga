@@ -1,9 +1,9 @@
 package tp5.gui;
 
-import tp4.domain.Cardapio;
-import tp4.domain.Produto;
-import tp4.domain.Cliente;
-import tp4.domain.Venda;
+import tp5.domain.Cardapio;
+import tp5.domain.Produto;
+import tp5.domain.Cliente;
+import tp5.domain.Venda;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Objects;
+
 
 public class VendaPanel extends JPanel {
     public JComboBox<String> clientDropdown;

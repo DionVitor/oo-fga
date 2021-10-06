@@ -1,7 +1,6 @@
 package tp5.gui;
 
-import tp4.domain.Cliente;
-import tp4.gui.VendaPanel;
+import tp5.domain.Cliente;
 
 import javax.swing.*;
 import java.awt.*;
