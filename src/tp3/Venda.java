@@ -1,11 +1,13 @@
-package tp4.domain;
+package tp3;
+
+import tp3.CRUD;
 
 public class Venda extends CRUD {
-    private String nomeCliente;
-    private String nomeProduto;
-    private String quantProduto;
+    private final String nomeCliente;
+    private final String nomeProduto;
+    private final int quantProduto;
 
-    public Venda(String nomeCliente, String nomeProduto, String quantProduto) {
+    public Venda(String nomeCliente, String nomeProduto, int quantProduto) {
         this.nomeCliente = nomeCliente;
         this.nomeProduto = nomeProduto;
         this.quantProduto = quantProduto;
@@ -18,19 +20,15 @@ public class Venda extends CRUD {
 
     @Override
     public boolean edit() {
-        return false;
-    }
-
-    public void edit(String nameClient, String nameProduct, String quantity) {
-        this.nomeCliente = nameClient;
-        this.nomeProduto = nameProduct;
-        this.quantProduto = quantity;
+        return true;
     }
 
     @Override
     public boolean delete() {
         return true;
     }
+
+    public void emitirNota(){}
 
     public String getNomeCliente() {
         return this.nomeCliente;
@@ -40,7 +38,7 @@ public class Venda extends CRUD {
         return this.nomeProduto;
     }
 
-    public String getQuantProduto() {
+    public int getQuantProduto() {
         return this.quantProduto;
     }
 }

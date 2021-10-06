@@ -1,7 +1,10 @@
-package tp4.domain;
+package tp3;
+
+import tp3.Produto;
+import tp3.CRUD;
 
 public class Cardapio extends CRUD {
-    private String tipo;
+    private final String tipo;
     private final Produto[] produtos;
 
     public Cardapio(String tipo, Produto[] produtos) {
@@ -16,11 +19,6 @@ public class Cardapio extends CRUD {
 
     @Override
     public boolean edit() {
-        return false;
-    }
-
-    public boolean edit(String type) {
-        this.tipo = type;
         return true;
     }
 

@@ -1,14 +1,16 @@
-package tp4.domain;
+package tp3;
+
+import tp3.*;
 
 import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
         Cliente cliente = new Cliente("João", "Asa Sul", "61-998822230", "Dinheiro");
-        Produto produto = new Produto("Maça", "12.50", "Uma deliciosa fruta.", "10");
+        Produto produto = new Produto("Maça", 12.50, "Uma deliciosa fruta.", 10);
         Produto[] produtos = {produto};
         Cardapio cardapio = new Cardapio("Frutas", produtos);
-        Venda venda = new Venda("João", "Maça", "2");
+        Venda venda = new Venda("João", "Maça", 2);
 
         System.out.println(cliente.getNome());
         System.out.println(cliente.getEndereco());
