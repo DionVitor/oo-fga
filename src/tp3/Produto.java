@@ -1,12 +1,14 @@
-package tp4.domain;
+package tp3;
+
+import tp3.CRUD;
 
 public class Produto extends CRUD {
-    private String nome;
-    private String preco;
-    private String descricao;
-    private String estoque;
+    private final String nome;
+    private final double preco;
+    private final String descricao;
+    private final int estoque;
 
-    public Produto(String nome, String preco, String descricao, String estoque){
+    public Produto(String nome, double preco, String descricao, int estoque){
         this.nome = nome;
         this.preco = preco;
         this.descricao = descricao;
@@ -23,14 +25,6 @@ public class Produto extends CRUD {
         return true;
     }
 
-    public boolean edit(String name, String price, String desc, String invent) {
-        this.nome = name;
-        this.preco = price;
-        this.descricao = desc;
-        this.estoque = invent;
-        return true;
-    }
-
     @Override
     public boolean delete() {
         return true;
@@ -40,7 +34,7 @@ public class Produto extends CRUD {
         return this.nome;
     }
 
-    public String getPreco() {
+    public double getPreco() {
         return this.preco;
     }
 
@@ -48,7 +42,7 @@ public class Produto extends CRUD {
         return this.descricao;
     }
 
-    public String getEstoque() {
+    public int getEstoque() {
         return this.estoque;
     }
 }
