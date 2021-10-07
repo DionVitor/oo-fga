@@ -9,15 +9,16 @@ import tp5.gui.*;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+import tp5.repositories.ClientRepository;
 
 
-public class TestCreateItemInDatabase {
+public class TestCreateItensInDatabase {
     private final ArrayList<Cardapio> arrayMenu;
     private final ArrayList<Cliente> arrayClients;
     private final ArrayList<Venda> arraySales;
     private final ArrayList<Produto> arrayProducts;
 
-    public TestCreateItemInDatabase() {
+    public TestCreateItensInDatabase() {
         this.arrayMenu = new ArrayList<>();
         this.arrayClients = new ArrayList<>();
         this.arraySales = new ArrayList<>();
@@ -32,7 +33,8 @@ public class TestCreateItemInDatabase {
 
     @Test
     void testCreateClientInDatabase() {
-        ClientePanel.registerClient(this.arrayClients, "Dion", "Gama", "61-923434220", "Cartão");
+        ClientRepository repository = new ClientRepository(this.arrayClients);
+        repository.registerClient("Dion", "Gama", "61-923434220", "Cartão");
         assertEquals(this.arrayClients.toArray().length, 1);
     }
 

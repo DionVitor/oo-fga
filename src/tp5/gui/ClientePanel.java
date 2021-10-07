@@ -1,6 +1,7 @@
 package tp5.gui;
 
 import tp5.domain.Cliente;
+import tp5.repositories.ClientRepository;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,11 +12,13 @@ import java.util.Objects;
 
 
 public class ClientePanel extends JPanel {
+    public ClientRepository repository;
 
     public ClientePanel(ArrayList<Cliente> clients, VendaPanel vendaPanel) {
         super(false);
         JPanel clientsListPanel = new JPanel();
         final JComboBox<String> dropdown = new JComboBox<>();
+        repository = new ClientRepository(clients);
 
         // Title
         this.add(Box.createRigidArea(new Dimension(1000, 8)));
@@ -79,8 +82,7 @@ public class ClientePanel extends JPanel {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (!Objects.equals(nameInput.getText(), "")) {
-                            ClientePanel.registerClient(
-                                    clients,
+                            repository.registerClient(
                                     nameInput.getText(),
                                     addressInput.getText(),
                                     phoneInput.getText(),
@@ -149,8 +151,7 @@ public class ClientePanel extends JPanel {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        ClientePanel.editClient(
-                                clients,
+                        repository.editClient(
                                 dropdown.getSelectedItem().toString(),
                                 addressEditInput.getText(),
                                 phoneEditInput.getText(),
@@ -171,7 +172,7 @@ public class ClientePanel extends JPanel {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        ClientePanel.deleteClient(clients, dropdown.getSelectedItem().toString());
+                        repository.deleteClient(dropdown.getSelectedItem().toString());
 
                         JOptionPane.showMessageDialog(
                                 null,
@@ -224,22 +225,5 @@ public class ClientePanel extends JPanel {
             clientsNames.add(client.getNome());
         }
         return clientsNames;
-    }
-
-    public static void registerClient(ArrayList<Cliente> clients, String name, String address, String phone, String payment) {
-        Cliente client = new Cliente(name, address, phone, payment);
-        clients.add(client);
-    }
-
-    public static void deleteClient(ArrayList<Cliente> clients, String name) {
-        clients.removeIf(client -> Objects.equals(client.getNome(), name));
-    }
-
-    public static void editClient(ArrayList<Cliente> clients, String name, String address, String phone, String payment) {
-        for (Cliente client : clients) {
-            if (Objects.equals(client.getNome(), name)) {
-                client.edit(name, address, phone, payment);
-            }
-        }
     }
 }

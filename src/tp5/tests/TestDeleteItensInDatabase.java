@@ -8,19 +8,19 @@ import tp5.domain.Venda;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-import tp5.gui.ClientePanel;
 import tp5.gui.MenuPanel;
 import tp5.gui.ProdutoPanel;
 import tp5.gui.VendaPanel;
+import tp5.repositories.ClientRepository;
 
 
-public class TestDeleteItemInDatabase {
+public class TestDeleteItensInDatabase {
     private final ArrayList<Cardapio> arrayMenu;
     private final ArrayList<Cliente> arrayClients;
     private final ArrayList<Venda> arraySales;
     private final ArrayList<Produto> arrayProducts;
 
-    public TestDeleteItemInDatabase() {
+    public TestDeleteItensInDatabase() {
         this.arrayMenu = new ArrayList<>();
         this.arrayClients = new ArrayList<>();
         this.arraySales = new ArrayList<>();
@@ -36,8 +36,10 @@ public class TestDeleteItemInDatabase {
 
     @Test
     void testDeleteClientInDatabase() {
-        ClientePanel.registerClient(this.arrayClients, "Dion", "Gama", "61-923434220", "Cartão");
-        ClientePanel.deleteClient(this.arrayClients, "Dion");
+        ClientRepository repository = new ClientRepository(this.arrayClients);
+
+        repository.registerClient("Dion", "Gama", "61-923434220", "Cartão");
+        repository.deleteClient("Dion");
         assertEquals(this.arrayClients.toArray().length, 0);
     }
 
