@@ -12,6 +12,7 @@ import tp5.gui.MenuPanel;
 import tp5.gui.ProdutoPanel;
 import tp5.gui.VendaPanel;
 import tp5.repositories.ClientRepository;
+import tp5.repositories.ProductRepository;
 
 
 public class TestDeleteItensInDatabase {
@@ -45,8 +46,9 @@ public class TestDeleteItensInDatabase {
 
     @Test
     void testDeleteProductInDatabase() {
-        ProdutoPanel.registerProduct(this.arrayProducts, "Maça", "4", "Gostosa fruta.", "5");
-        ProdutoPanel.deleteProduct(this.arrayProducts, "Maça");
+        ProductRepository repository = new ProductRepository(this.arrayProducts);
+        repository.registerProduct("Maça", "4", "Gostosa fruta.", "5");
+        repository.deleteProduct("Maça");
         assertEquals(this.arrayProducts.toArray().length, 0);
     }
 

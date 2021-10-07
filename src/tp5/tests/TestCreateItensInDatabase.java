@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import tp5.repositories.ClientRepository;
+import tp5.repositories.ProductRepository;
 
 
 public class TestCreateItensInDatabase {
@@ -40,7 +41,8 @@ public class TestCreateItensInDatabase {
 
     @Test
     void testCreateProductInDatabase() {
-        ProdutoPanel.registerProduct(this.arrayProducts, "Maça", "4", "Gostosa fruta.", "5");
+        ProductRepository repository = new ProductRepository(this.arrayProducts);
+        repository.registerProduct("Maça", "4", "Gostosa fruta.", "5");
         assertEquals(this.arrayProducts.toArray().length, 1);
     }
 

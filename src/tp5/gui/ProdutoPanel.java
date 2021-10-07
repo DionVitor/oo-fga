@@ -3,6 +3,7 @@ package tp5.gui;
 import tp5.domain.Produto;
 import tp5.gui.MenuPanel;
 import tp5.gui.VendaPanel;
+import tp5.repositories.ProductRepository;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,11 +11,13 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class ProdutoPanel extends JPanel {
+    public ProductRepository repository;
 
     public ProdutoPanel(ArrayList<Produto> products, MenuPanel menuPanel, VendaPanel vendaPanel) {
         super(false);
         JPanel productsListPanel = new JPanel();
         final JComboBox<String> dropdown = new JComboBox<>();
+        repository = new ProductRepository(products);
 
         // Break line
         this.add(Box.createRigidArea(new Dimension(1000, 8)));
@@ -81,8 +84,7 @@ public class ProdutoPanel extends JPanel {
         saveButton.addActionListener(
                 e -> {
                     if (!Objects.equals(nameInput.getText(), "")) {
-                        ProdutoPanel.registerProduct(
-                                products,
+                        repository.registerProduct(
                                 nameInput.getText(),
                                 priceInput.getText(),
                                 descInput.getText(),
@@ -165,8 +167,7 @@ public class ProdutoPanel extends JPanel {
 
         editButton.addActionListener(
                 e -> {
-                    ProdutoPanel.editProduct(
-                            products,
+                    repository.editProduct(
                             Objects.requireNonNull(dropdown.getSelectedItem()).toString(),
                             priceEditInput.getText(),
                             descEditInput.getText(),
@@ -186,8 +187,7 @@ public class ProdutoPanel extends JPanel {
 
         deleteButton.addActionListener(
                 e -> {
-                    ProdutoPanel.deleteProduct(products,
-                            Objects.requireNonNull(dropdown.getSelectedItem()).toString());
+                    repository.deleteProduct(Objects.requireNonNull(dropdown.getSelectedItem()).toString());
 
                     JOptionPane.showMessageDialog(
                             null,
@@ -205,7 +205,7 @@ public class ProdutoPanel extends JPanel {
 
                     vendaPanel.productDropdown.removeItem(dropdown.getSelectedItem().toString());
                     dropdown.removeItem(dropdown.getSelectedItem().toString());
-                    vendaPanel.productDropdownEdit.removeItem(nameInput.getText().toString());
+                    vendaPanel.productDropdownEdit.removeItem(nameInput.getText());
 
                     menuPanel.menuCheckBoxPanel.removeAll();
                     for (Produto product : products) {
@@ -246,22 +246,5 @@ public class ProdutoPanel extends JPanel {
             productsNames.add(product.getNome());
         }
         return productsNames;
-    }
-
-    public static void registerProduct(ArrayList<Produto> products, String name, String price, String desc, String invent) {
-        Produto product = new Produto(name, price, desc, invent);
-        products.add(product);
-    }
-
-    public static void deleteProduct(ArrayList<Produto> products, String name) {
-        products.removeIf(product -> Objects.equals(product.getNome(), name));
-    }
-
-    public static void editProduct(ArrayList<Produto> products, String name, String price, String desc, String invent) {
-        for (Produto product : products) {
-            if (Objects.equals(product.getNome(), name)) {
-                product.edit(name, price, desc, invent);
-            }
-        }
     }
 }
