@@ -1,14 +1,13 @@
 package tp5.gui;
 
 import tp5.domain.Produto;
-import tp5.gui.MenuPanel;
-import tp5.gui.VendaPanel;
 import tp5.repositories.ProductRepository;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Objects;
+
 
 public class ProdutoPanel extends JPanel {
     public ProductRepository repository;

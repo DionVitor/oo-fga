@@ -2,6 +2,7 @@ package tp5.gui;
 
 import tp5.domain.Cardapio;
 import tp5.domain.Produto;
+import tp5.repositories.MenuRepository;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,11 +14,13 @@ import java.util.Objects;
 
 public class MenuPanel extends JPanel {
     public JPanel menuCheckBoxPanel;
+    public MenuRepository repository;
 
     public MenuPanel(ArrayList<Cardapio> menus, ArrayList<Produto> products) {
         super(false);
         final JComboBox<String> dropdown = new JComboBox<>();
         JPanel menuListPanel = new JPanel();
+        repository = new MenuRepository(menus);
 
         // Title
         this.add(Box.createRigidArea(new Dimension(1000, 8)));
@@ -75,10 +78,8 @@ public class MenuPanel extends JPanel {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (!Objects.equals(typeInput.getText(), "")) {
-                            MenuPanel.registerMenu(
-                                    menus,
-                                    typeInput.getText()
-                            );
+                            repository.registerMenu(typeInput.getText());
+
                             JOptionPane.showMessageDialog(
                                     null, "Cardápio adicionado: " + typeInput.getText(), null, JOptionPane.INFORMATION_MESSAGE
                             );
@@ -127,7 +128,7 @@ public class MenuPanel extends JPanel {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (!Objects.equals(typeEditInput.getText(), "")) {
-                            MenuPanel.editMenu(menus, dropdown.getSelectedItem().toString(), typeEditInput.getText());
+                            repository.editMenu(dropdown.getSelectedItem().toString(), typeEditInput.getText());
                             JOptionPane.showMessageDialog(
                                     null,
                                     "Cardápio editado: " + dropdown.getSelectedItem().toString(),
@@ -154,7 +155,7 @@ public class MenuPanel extends JPanel {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        MenuPanel.deleteMenu(menus, dropdown.getSelectedItem().toString());
+                        repository.deleteMenu(dropdown.getSelectedItem().toString());
 
                         JOptionPane.showMessageDialog(
                                 null,
@@ -216,21 +217,5 @@ public class MenuPanel extends JPanel {
             productNames.add(product.getNome());
         }
         return productNames;
-    }
-
-    public static void registerMenu(ArrayList<Cardapio> menus, String type) {
-        Cardapio menu = new Cardapio(type, new Produto[] {});
-        menus.add(menu);
-    }
-
-    public static void deleteMenu(ArrayList<Cardapio> menus, String type) {
-        menus.removeIf(menu -> Objects.equals(menu.getTipo(), type));
-    }
-    public static void editMenu(ArrayList<Cardapio> menus, String type, String newType) {
-        for (Cardapio menu : menus) {
-            if (Objects.equals(menu.getTipo(), type)) {
-                menu.edit(newType);
-            }
-        }
     }
 }

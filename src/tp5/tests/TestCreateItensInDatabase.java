@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import tp5.repositories.ClientRepository;
+import tp5.repositories.MenuRepository;
 import tp5.repositories.ProductRepository;
 
 
@@ -48,7 +49,8 @@ public class TestCreateItensInDatabase {
 
     @Test
     void testCreateMenuInDatabase() {
-        MenuPanel.registerMenu(this.arrayMenu, "Frutas");
+        MenuRepository repository = new MenuRepository(this.arrayMenu);
+        repository.registerMenu("Frutas");
         assertEquals(this.arrayMenu.toArray().length, 1);
     }
 }

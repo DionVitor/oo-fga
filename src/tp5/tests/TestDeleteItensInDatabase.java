@@ -12,6 +12,7 @@ import tp5.gui.MenuPanel;
 import tp5.gui.ProdutoPanel;
 import tp5.gui.VendaPanel;
 import tp5.repositories.ClientRepository;
+import tp5.repositories.MenuRepository;
 import tp5.repositories.ProductRepository;
 
 
@@ -54,8 +55,9 @@ public class TestDeleteItensInDatabase {
 
     @Test
     void testDeleteMenuInDatabase() {
-        MenuPanel.registerMenu(this.arrayMenu, "Frutas");
-        MenuPanel.deleteMenu(this.arrayMenu, "Frutas");
+        MenuRepository repository = new MenuRepository(this.arrayMenu);
+        repository.registerMenu("Frutas");
+        repository.deleteMenu("Frutas");
         assertEquals(this.arrayMenu.toArray().length, 0);
     }
 }
