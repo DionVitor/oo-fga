@@ -1,6 +1,6 @@
 package tp5.domain;
 
-public class Produto extends CRUD {
+public class    Produto extends CRUD {
     private String nome;
     private String preco;
     private String descricao;
