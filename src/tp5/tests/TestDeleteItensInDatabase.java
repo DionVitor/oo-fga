@@ -8,12 +8,11 @@ import tp5.domain.Venda;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-import tp5.gui.MenuPanel;
-import tp5.gui.ProdutoPanel;
-import tp5.gui.VendaPanel;
+
 import tp5.repositories.ClientRepository;
 import tp5.repositories.MenuRepository;
 import tp5.repositories.ProductRepository;
+import tp5.repositories.SalesRepository;
 
 
 public class TestDeleteItensInDatabase {
@@ -31,15 +30,15 @@ public class TestDeleteItensInDatabase {
 
     @Test
     void testDeleteSaleInDatabase() {
-        VendaPanel.registerSale(this.arraySales, "Dion", "Maça", "10");
-        VendaPanel.deleteSale(this.arraySales, "Dion", "Maça", "10");
+        SalesRepository repository = new SalesRepository(this.arraySales);
+        repository.registerSale("Dion", "Maça", "10");
+        repository.deleteSale("Dion", "Maça", "10");
         assertEquals(this.arraySales.toArray().length, 0);
     }
 
     @Test
     void testDeleteClientInDatabase() {
         ClientRepository repository = new ClientRepository(this.arrayClients);
-
         repository.registerClient("Dion", "Gama", "61-923434220", "Cartão");
         repository.deleteClient("Dion");
         assertEquals(this.arrayClients.toArray().length, 0);

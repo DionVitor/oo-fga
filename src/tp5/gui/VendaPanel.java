@@ -4,6 +4,7 @@ import tp5.domain.Cardapio;
 import tp5.domain.Produto;
 import tp5.domain.Cliente;
 import tp5.domain.Venda;
+import tp5.repositories.SalesRepository;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,10 +19,12 @@ public class VendaPanel extends JPanel {
     public JComboBox<String> productDropdown;
     public JComboBox<String> clientDropdownEdit;
     public JComboBox<String> productDropdownEdit;
+    public SalesRepository repository;
 
     public VendaPanel(ArrayList<Cliente> clients, ArrayList<Produto> products, ArrayList<Venda> sales) {
         super(false);
         JPanel saleListPanel = new JPanel();
+        repository = new SalesRepository(sales);
 
         // Title
         this.add(Box.createRigidArea(new Dimension(1000, 8)));
@@ -87,8 +90,7 @@ public class VendaPanel extends JPanel {
         JButton saveButton = new JButton("Adicionar");
         saveButton.addActionListener(
                 e -> {
-                    VendaPanel.registerSale(
-                            sales,
+                    repository.registerSale(
                             clientDropdown.getSelectedItem().toString(),
                             productDropdown.getSelectedItem().toString(),
                             quantityInput.getText()
@@ -141,7 +143,7 @@ public class VendaPanel extends JPanel {
                         String _data = clientDropdownEdit.getSelectedItem().toString();
                         String[] data = _data.split(" - ");
                         if (!Objects.equals(quantityEditInput.getText(), "")) {
-                            editSale(sales, data[0], data[1], quantityEditInput.getText());
+                            repository.editSale(data[0], data[1], quantityEditInput.getText());
 
                             JOptionPane.showMessageDialog(
                                     null,
@@ -171,7 +173,7 @@ public class VendaPanel extends JPanel {
                     public void actionPerformed(ActionEvent e) {
                         String _data = clientDropdownEdit.getSelectedItem().toString();
                         String[] data = _data.split(" - ");
-                        deleteSale(sales, data[0], data[1], data[2]);
+                        repository.deleteSale(data[0], data[1], data[2]);
 
                         JOptionPane.showMessageDialog(
                                 null,
@@ -212,24 +214,5 @@ public class VendaPanel extends JPanel {
         listSalePanel.add(salesListScroll);
 
         this.add(tabbedPane);
-    }
-
-    public static void registerSale(ArrayList<Venda> sales, String nameClient, String nameProduct, String quantity) {
-        Venda sale = new Venda(nameClient, nameProduct, quantity);
-        sales.add(sale);
-    }
-
-    public static void deleteSale(ArrayList<Venda> sales, String nameClient, String productName, String quantity) {
-        sales.removeIf(sale -> Objects.equals(sale.getNomeCliente(), nameClient) &&
-                Objects.equals(sale.getNomeProduto(), productName) &&
-                Objects.equals(sale.getQuantProduto(), quantity));
-    }
-
-    public static void editSale(ArrayList<Venda> sales, String nameClient, String nameProduct, String quantity) {
-        for (Venda sale : sales) {
-            if (Objects.equals(sale.getNomeCliente(), nameClient)) {
-                sale.edit(nameClient, nameProduct, quantity);
-            }
-        }
     }
 }

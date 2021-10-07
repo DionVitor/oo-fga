@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import tp5.repositories.ClientRepository;
 import tp5.repositories.MenuRepository;
 import tp5.repositories.ProductRepository;
+import tp5.repositories.SalesRepository;
 
 
 public class TestCreateItensInDatabase {
@@ -29,7 +30,8 @@ public class TestCreateItensInDatabase {
 
     @Test
     void testCreateSaleInDatabase() {
-        VendaPanel.registerSale(this.arraySales, "Dion", "Maça", "10");
+        SalesRepository repository = new SalesRepository(this.arraySales);
+        repository.registerSale("Dion", "Maça", "10");
         assertEquals(this.arraySales.toArray().length, 1);
     }
 
