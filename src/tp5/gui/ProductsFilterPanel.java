@@ -9,6 +9,12 @@ import java.util.Comparator;
 import java.util.Objects;
 
 
+/**
+ * Classe de filtro de produtos mais caros
+ *
+ * @author Dion Vitor e Eurico Abreu
+ * @version 1.0
+ */
 public class ProductsFilterPanel extends JPanel {
     public ProductsFilterPanel(ArrayList<Produto> products) {
         super(false);

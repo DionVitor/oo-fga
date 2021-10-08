@@ -8,6 +8,13 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Objects;
 
+
+/**
+ * Classe de filtro de produtos mais baratos
+ *
+ * @author Dion Vitor e Eurico Abreu
+ * @version 1.0
+ */
 public class CheaperProductsFilterPanel extends JPanel {
     public CheaperProductsFilterPanel(ArrayList<Produto> products) {
         super(false);

@@ -11,6 +11,12 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 
+/**
+ * Classe do painel de clientes
+ *
+ * @author Dion Vitor e Eurico Abreu
+ * @version 1.0
+ */
 public class ClientePanel extends JPanel {
     public ClientRepository repository;
 
@@ -218,7 +224,11 @@ public class ClientePanel extends JPanel {
 
         this.add(tabbedPane);
     }
-
+    /**
+     * Método para conseguir os nomes dos clientes
+     *
+     * @param clients array de clients
+     */
     private ArrayList<String> getClientsNames(ArrayList<Cliente> clients) {
         ArrayList<String> clientsNames = new ArrayList<>();
         for (Cliente client : clients) {

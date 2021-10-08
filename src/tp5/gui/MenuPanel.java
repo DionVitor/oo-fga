@@ -12,6 +12,12 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 
+/**
+ * Classe do painel de cardápios
+ *
+ * @author Dion Vitor e Eurico Abreu
+ * @version 1.0
+ */
 public class MenuPanel extends JPanel {
     public JPanel menuCheckBoxPanel;
     public MenuRepository repository;
@@ -202,7 +208,11 @@ public class MenuPanel extends JPanel {
 
         this.add(tabbedPane);
     }
-
+    /**
+     * Método para conseguir os tipos dos cardápios
+     *
+     * @param menus array de cardápios
+     */
     private ArrayList<String> getMenuTypes(ArrayList<Cardapio> menus) {
         ArrayList<String> menuTypes = new ArrayList<>();
         for (Cardapio menu : menus) {
@@ -211,6 +221,11 @@ public class MenuPanel extends JPanel {
         return menuTypes;
     }
 
+    /**
+     * Método para conseguir os nomes dos produtos
+     *
+     * @param products array de products
+     */
     private ArrayList<String> getProductNames(ArrayList<Produto> products) {
         ArrayList<String> productNames = new ArrayList<>();
         for (Produto product : products) {

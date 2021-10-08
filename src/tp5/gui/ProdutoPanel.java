@@ -9,6 +9,12 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 
+/**
+ * Classe de painel de produto
+ *
+ * @author Dion Vitor e Eurico Abreu
+ * @version 1.0
+ */
 public class ProdutoPanel extends JPanel {
     public ProductRepository repository;
 
@@ -238,7 +244,11 @@ public class ProdutoPanel extends JPanel {
 
         this.add(tabbedPane);
     }
-
+    /**
+     * Método para conseguir os nomes de produtos
+     *
+     * @param products array de produtos
+     */
     private ArrayList<String> getProductsInfo(ArrayList<Produto> products) {
         ArrayList<String> productsNames = new ArrayList<>();
         for (Produto product : products) {

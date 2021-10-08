@@ -1,6 +1,5 @@
 package tp5.gui;
 
-import tp5.domain.Cardapio;
 import tp5.domain.Produto;
 import tp5.domain.Cliente;
 import tp5.domain.Venda;
@@ -14,6 +13,12 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 
+/**
+ * Classe de painel de vendas
+ *
+ * @author Dion Vitor e Eurico Abreu
+ * @version 1.0
+ */
 public class VendaPanel extends JPanel {
     public JComboBox<String> clientDropdown;
     public JComboBox<String> productDropdown;

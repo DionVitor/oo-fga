@@ -8,7 +8,12 @@ import tp5.domain.Venda;
 import javax.swing.*;
 import java.util.ArrayList;
 
-
+/**
+ * Classe principal para execução da GUI
+ *
+ * @author Dion Vitor e Eurico Abreu
+ * @version 1.0
+ */
 public class Main {
     public static void main(String[] args) {
         JFrame window = new JFrame("Fast Food");
