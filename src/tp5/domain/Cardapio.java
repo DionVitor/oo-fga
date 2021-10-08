@@ -1,8 +1,12 @@
 package tp5.domain;
 
-import tp5.domain.CRUD;
-import tp5.domain.Produto;
 
+/**
+ * Classe de Cardápio
+ *
+ * @author Dion Vitor e Eurico Abreu
+ * @version 1.0
+ */
 public class Cardapio extends CRUD {
     private String tipo;
     private final tp5.domain.Produto[] produtos;
