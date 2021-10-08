@@ -248,6 +248,7 @@ public class ProdutoPanel extends JPanel {
      * Método para conseguir os nomes de produtos
      *
      * @param products array de produtos
+     * @return productsNames - ArrayList<string>
      */
     private ArrayList<String> getProductsInfo(ArrayList<Produto> products) {
         ArrayList<String> productsNames = new ArrayList<>();

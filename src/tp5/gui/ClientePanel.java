@@ -228,6 +228,7 @@ public class ClientePanel extends JPanel {
      * Método para conseguir os nomes dos clientes
      *
      * @param clients array de clients
+     * @return clientsNames - ArrayList<string>
      */
     private ArrayList<String> getClientsNames(ArrayList<Cliente> clients) {
         ArrayList<String> clientsNames = new ArrayList<>();

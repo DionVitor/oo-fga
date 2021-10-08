@@ -1,7 +1,12 @@
 package tp5.domain;
 
-import tp5.domain.CRUD;
 
+/**
+ * Classe de Cliente
+ *
+ * @author Dion Vitor e Eurico Abreu
+ * @version 1.0
+ */
 public class Cliente extends CRUD {
     private String nome;
     private String endereco;

@@ -1,6 +1,13 @@
 package tp5.domain;
 
-public class    Produto extends CRUD {
+
+/**
+ * Classe de Produto
+ *
+ * @author Dion Vitor e Eurico Abreu
+ * @version 1.0
+ */
+public class Produto extends CRUD {
     private String nome;
     private String preco;
     private String descricao;

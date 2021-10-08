@@ -1,5 +1,12 @@
 package tp5.domain;
 
+
+/**
+ * Classe de Venda
+ *
+ * @author Dion Vitor e Eurico Abreu
+ * @version 1.0
+ */
 public class Venda extends CRUD {
     private String nomeCliente;
     private String nomeProduto;
