@@ -212,6 +212,7 @@ public class MenuPanel extends JPanel {
      * Método para conseguir os tipos dos cardápios
      *
      * @param menus array de cardápios
+     * @return menuTypes - ArrayList
      */
     private ArrayList<String> getMenuTypes(ArrayList<Cardapio> menus) {
         ArrayList<String> menuTypes = new ArrayList<>();
@@ -225,7 +226,7 @@ public class MenuPanel extends JPanel {
      * Método para conseguir os nomes dos produtos
      *
      * @param products array de products
-     * @return productNames - ArrayList<string>
+     * @return productNames - ArrayList
      */
     private ArrayList<String> getProductNames(ArrayList<Produto> products) {
         ArrayList<String> productNames = new ArrayList<>();
